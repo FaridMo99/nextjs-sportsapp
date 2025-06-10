@@ -1,6 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import Aside from "@/components/Aside";
+import { House, Calendar, Users, ChartColumn, Trophy } from "lucide-react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,12 +20,27 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const iconSize = 25;
+
+  const links = [
+    { href: "/", text: "Home", icon: <House size={iconSize} /> },
+    { href: "/seasons", text: "Seasons", icon: <Calendar size={iconSize} /> },
+    { href: "/players", text: "Players", icon: <Users size={iconSize} /> },
+    {
+      href: "/statistics",
+      text: "Statistics",
+      icon: <ChartColumn size={iconSize} />,
+    },
+    { href: "/scores", text: "Scores", icon: <Trophy size={iconSize} /> },
+  ];
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
+        <Header limit={50} scrollColor="bg-secondary" />
+        <Aside links={links} limit={50} scrollColor="bg-secondary" />
         {children}
       </body>
     </html>

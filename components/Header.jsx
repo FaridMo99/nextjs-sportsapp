@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Search from "./Search";
 
-function Header() {
-  const limit = 50;
+function Header({ limit, scrollColor }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -24,8 +23,8 @@ function Header() {
 
   return (
     <header
-      className={`w-full h-[10vh] fixed flex items-center justify-center transition-all duration-300 z-100 ${
-        scrolled ? "bg-black/30" : ""
+      className={`w-full h-[10vh] fixed flex items-center justify-center transition-colors duration-300 z-100 ${
+        scrolled ? scrollColor : ""
       }`}
     >
       <div className="absolute left-0 top-0 h-full w-[25%]">
