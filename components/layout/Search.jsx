@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import { Search as Loop } from "lucide-react";
 
 function Search() {

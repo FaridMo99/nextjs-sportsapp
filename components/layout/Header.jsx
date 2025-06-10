@@ -24,12 +24,17 @@ function Header({ limit, scrollColor }) {
 
   return (
     <header
-      className={`w-full h-[10vh] fixed flex items-center justify-center transition-colors duration-300 z-100 ${
+      className={`w-full h-[10vh] sticky top-0 left-0 flex items-center justify-center transition-colors duration-300 z-100 ${
         scrolled ? scrollColor : ""
       }`}
     >
       <Link href="/" className="absolute -left-3 top-0 h-full w-40">
-        <Image src="/hooptracker-logo.png" alt="hooptracker logo" fill={true} />
+        <Image
+          priority
+          src="/hooptracker-logo.png"
+          alt="hooptracker logo"
+          fill={true}
+        />
       </Link>
       <Search />
     </header>

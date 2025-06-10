@@ -9,7 +9,7 @@ function Aside({ links }) {
 
   return (
     <aside
-      className={`fixed h-screen flex flex-col justify-center left-0 top-0 z-100  ${hovered ? "w-1/4 md:w-1/6" : "w-1/6 md:w-1/10"}`}
+      className={`sticky h-[90vh] flex flex-col justify-center left-0 top-[10vh] z-100 ${hovered ? "w-1/4 md:w-1/6" : "w-1/6 md:w-1/10"}`}
     >
       <nav
         onMouseEnter={() => {
@@ -18,7 +18,7 @@ function Aside({ links }) {
         onMouseLeave={() => {
           setHovered(false);
         }}
-        className="w-full outline-1 outline-secondary-light h-1/2 bg-secondary rounded-r-xl flex flex-col items-center justify-center"
+        className="w-full outline-1 mb-[10vh] outline-secondary-light h-1/2 bg-secondary rounded-r-xl flex flex-col items-center justify-center"
       >
         {links.map((link) => (
           <Link
