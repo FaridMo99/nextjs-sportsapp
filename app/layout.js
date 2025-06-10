@@ -39,8 +39,11 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header limit={50} scrollColor="bg-secondary" />
-        <Aside links={links} limit={50} scrollColor="bg-secondary" />
+        <Header
+          limit={50}
+          scrollColor="bg-secondary outline-1 outline-secondary-light"
+        />
+        <Aside links={links} />
         {children}
       </body>
     </html>

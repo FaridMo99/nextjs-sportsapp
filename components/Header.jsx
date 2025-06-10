@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Search from "./Search";
+import Link from "next/link";
 
 function Header({ limit, scrollColor }) {
   const [scrolled, setScrolled] = useState(false);
@@ -27,9 +28,9 @@ function Header({ limit, scrollColor }) {
         scrolled ? scrollColor : ""
       }`}
     >
-      <div className="absolute left-0 top-0 h-full w-[25%]">
+      <Link href="/" className="absolute -left-3 top-0 h-full w-40">
         <Image src="/hooptracker-logo.png" alt="hooptracker logo" fill={true} />
-      </div>
+      </Link>
       <Search />
     </header>
   );
