@@ -228,3 +228,4 @@ export default async function Home() {
 }
 
 //all things should also be links
+//add if length == 0 no games found...

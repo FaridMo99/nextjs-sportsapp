@@ -34,6 +34,7 @@ function Standings({ teams }) {
   const [isWesternConference, setConference] = useState(true);
 
   if (teams.length === 0) return <p>No Standings found...</p>;
+
   return (
     <>
       <div className="absolute top-6 font-bold text-secondary-light text-xl right-6 justify-between items-center w-24 h-6 flex">
@@ -59,13 +60,12 @@ function Standings({ teams }) {
           {isWesternConference
             ? westernConference.map((team) => (
                 <TableRow
-                  styles={{
-                    backgroundColor: `var(--${team.Name}-main)`,
-                    color: `var(--${team.Name}-second)`,
+                  style={{
+                    color: `var(--${team.Name}-main)`,
                   }}
                   key={team.Name}
                 >
-                  <TableCell>{team.position}</TableCell>
+                  <TableCell className="text-white">{team.position}</TableCell>
                   <TableCell>{team.Name}</TableCell>
                   <TableCell>{team.Wins}</TableCell>
                   <TableCell>{team.Losses}</TableCell>
@@ -74,12 +74,12 @@ function Standings({ teams }) {
               ))
             : easternConference.map((team) => (
                 <TableRow
-                  styles={{
+                  style={{
                     color: `var(--${team.Name}-main)`,
                   }}
                   key={team.Name}
                 >
-                  <TableCell>{team.position}</TableCell>
+                  <TableCell className="text-white">{team.position}</TableCell>
                   <TableCell>{team.Name}</TableCell>
                   <TableCell>{team.Wins}</TableCell>
                   <TableCell>{team.Losses}</TableCell>

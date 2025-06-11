@@ -1,94 +1,46 @@
 import React from "react";
 import PaginationComp from "@/components/PaginationComp";
 import PlayerCard from "@/components/PlayerCard";
+import { notFound } from "next/navigation";
 import "server-only";
 
-async function page() {
-  //const res = await fetch(`https://api.sportsdata.io/v3/nba/scores/json/PlayersActiveBasic?key=${process.env.API_KEY}`)
-  //const players = await res.json()
+function splitPlayersArray(players) {
+  const newArr = [];
+  const pageSize = 20;
 
-  const pro = await new Promise((resolve) => setTimeout(resolve, 100000));
-  const players = [
-    {
-      BirthCity: "St. Louis",
-      BirthCountry: "USA",
-      BirthDate: "1993-06-28T00:00:00",
-      BirthState: "MO",
-      FirstName: "Bradley",
-      Height: 76,
-      Jersey: 3,
-      LastName: "Beal",
-      Position: "SG",
-      Status: "Active",
-      Team: "PHO",
-      Weight: 207,
-    },
-    {
-      BirthCity: "Akron",
-      BirthCountry: "USA",
-      BirthDate: "1984-12-30T00:00:00",
-      BirthState: "OH",
-      FirstName: "LeBron",
-      Height: 81,
-      Jersey: 6,
-      LastName: "James",
-      Position: "SF",
-      Status: "Active",
-      Team: "LAL",
-      Weight: 250,
-    },
-    {
-      BirthCity: "Akron",
-      BirthCountry: "USA",
-      BirthDate: "1988-03-14T00:00:00",
-      BirthState: "OH",
-      FirstName: "Kevin",
-      Height: 82,
-      Jersey: 7,
-      LastName: "Durant",
-      Position: "SF",
-      Status: "Active",
-      Team: "PHO",
-      Weight: 240,
-    },
-    {
-      BirthCity: "Akron",
-      BirthCountry: "USA",
-      BirthDate: "1988-03-14T00:00:00",
-      BirthState: "OH",
-      FirstName: "Stephen",
-      Height: 75,
-      Jersey: 30,
-      LastName: "Curry",
-      Position: "PG",
-      Status: "Active",
-      Team: "GSW",
-      Weight: 185,
-    },
-    {
-      BirthCity: "Melbourne",
-      BirthCountry: "Australia",
-      BirthDate: "1992-03-23T00:00:00",
-      FirstName: "Kyrie",
-      Height: 75,
-      Jersey: 11,
-      LastName: "Irving",
-      Position: "PG",
-      Status: "Active",
-      Team: "DAL",
-      Weight: 195,
-    },
-  ];
+  for (let i = 0; i < players.length; i += pageSize) {
+    const slice = players.slice(i, i + pageSize);
+    newArr.push(slice);
+  }
+
+  return newArr;
+}
+
+async function page({ searchParams }) {
+  const res = await fetch(
+    `https://api.sportsdata.io/v3/nba/scores/json/PlayersActiveBasic?key=${process.env.API_KEY}`,
+  );
+  const players = await res.json();
+
+  const params = await searchParams;
+
+  const page = parseInt(params.page) || 1;
+
+  const playersPagination = splitPlayersArray(players);
+
+  if (page < 1 || page > playersPagination.length) {
+    notFound();
+  }
 
   return (
     <main className="flex flex-col items-center flex-grow overflow-auto p-4 gap-6">
-      {players.map((player) => (
+      {playersPagination[page - 1].map((player) => (
         <PlayerCard
           key={player.BirthDate + player.FirstName + player.LastName}
           player={player}
         />
       ))}
-      <PaginationComp />
+      <PaginationComp page={page} length={playersPagination.length} />
     </main>
   );
 }
@@ -97,8 +49,6 @@ export default page;
 
 //here i have to mock pagination client side because the API
 //doesnt offer these type of endpoints
-
-//add fake pagination
 
 //clicking on player card should intercept modal, refresh sends
 //to real page

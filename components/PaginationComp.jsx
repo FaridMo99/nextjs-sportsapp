@@ -1,5 +1,4 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import {
   Pagination,
   PaginationContent,
@@ -10,32 +9,49 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-function PaginationComp() {
-  const [page, setPage] = useState(1);
-
+function PaginationComp({ page, length }) {
   return (
     <Pagination>
       <PaginationContent>
+        {page > 1 && (
+          <PaginationItem>
+            <PaginationPrevious href={`/players?page=${page - 1}`} />
+          </PaginationItem>
+        )}
+
+        {page > 1 && (
+          <PaginationItem>
+            <PaginationLink href={`/players?page=${page - 1}`}>
+              {page - 1}
+            </PaginationLink>
+          </PaginationItem>
+        )}
+
         <PaginationItem>
-          <PaginationPrevious href="#" />
-        </PaginationItem>
-        <PaginationItem>
-          {page !== 1 && <PaginationLink href="#">{page - 1}</PaginationLink>}
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" isActive>
+          <PaginationLink href={`/players?page=${page}`} isActive>
             {page}
           </PaginationLink>
         </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">{page + 1}</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext href="#" />
-        </PaginationItem>
+
+        {page < length && (
+          <PaginationItem>
+            <PaginationLink href={`/players?page=${page + 1}`}>
+              {page + 1}
+            </PaginationLink>
+          </PaginationItem>
+        )}
+
+        {page < length - 1 && (
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+        )}
+
+        {page < length && (
+          <PaginationItem>
+            <PaginationNext href={`/players?page=${page + 1}`} />
+          </PaginationItem>
+        )}
       </PaginationContent>
     </Pagination>
   );

@@ -19,6 +19,8 @@ function PlayerCard({ player }) {
     },
   );
 
+  console.log(player);
+
   const feet = Math.floor(player.Height / 12);
   const inches = player.Height % 12;
   const teamName = transformTeamName(player.Team);
