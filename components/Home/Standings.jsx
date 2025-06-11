@@ -45,7 +45,7 @@ function Standings({ teams }) {
           }}
         />
       </div>
-      <Table className="bg-secondary rounded-2xl font-bold text-lg outline-1 outline-secondary-light overflow-clip">
+      <Table className="bg-secondary rounded-sm font-bold text-lg overflow-clip outline-1 outline-secondary-light">
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px] text-white">Rank</TableHead>

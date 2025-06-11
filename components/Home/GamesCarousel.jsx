@@ -21,7 +21,7 @@ function GamesCarousel({ games, state }) {
       loop
       speed={1500}
       fadeEffect={{ crossFade: true }}
-      className="rounded-xl shadow-md h-[40vh] relative"
+      className="rounded-sm shadow-md h-[40vh] relative"
     >
       {state === "InProgress" && (
         <div className="absolute top-2 right-2 z-10 flex items-center justify-between w-14">
@@ -32,7 +32,7 @@ function GamesCarousel({ games, state }) {
       {games.map((game, index) => (
         <SwiperSlide
           key={index}
-          className="p-6 bg-secondary border-1 border-secondary-light text-secondary-dark rounded-xl"
+          className="p-6 bg-secondary border-1 border-secondary-light text-secondary-dark rounded-sm"
         >
           <p className="text-lg">
             {game.AwayTeam} @ {game.HomeTeam}

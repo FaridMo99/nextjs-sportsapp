@@ -2,7 +2,6 @@ import "server-only";
 import HomeSectionWrapper from "@/components/Home/HomeSectionWrapper";
 import GamesCarousel from "@/components/Home/GamesCarousel";
 import Standings from "@/components/Home/Standings";
-import TopPerformers from "@/components/Home/TopPerformers";
 
 function getDay(offset) {
   const date = new Date();
@@ -18,8 +17,6 @@ function getDay(offset) {
 function getGames(status, ...gamesArrays) {
   return gamesArrays.flat().filter((game) => game.Status === status);
 }
-
-function getTopPlayers(players) {}
 
 export default async function Home() {
   const today = getDay(0);
@@ -76,8 +73,8 @@ export default async function Home() {
               Status: "InProgress",
               DateTime: "2025-06-11T19:30:00",
               DateTimeUTC: "2025-06-11T23:30:00Z",
-              AwayTeam: "LAL",
-              HomeTeam: "GSW",
+              AwayTeam: "bo",
+              HomeTeam: "bh",
               AwayTeamScore: 58,
               HomeTeamScore: 61,
               IsClosed: false,
@@ -187,29 +184,6 @@ export default async function Home() {
               Season: 2025,
               SeasonType: 1,
               GameEndDateTime: "2025-06-10T22:15:00",
-            },
-          ]}
-        />
-      </HomeSectionWrapper>
-
-      <HomeSectionWrapper title="Top Performers:">
-        <TopPerformers
-          players={[
-            {
-              Assists: 162.7,
-              BlockedShots: 16.6,
-              FieldGoalsPercentage: 31.5,
-              FreeThrowsPercentage: 49.9,
-              Games: 53,
-              Name: "Bradley Beal",
-              Points: 591.9,
-              Position: "SG",
-              Rebounds: 142.4,
-              Steals: 31.9,
-              Team: "PHO",
-              ThreePointersPercentage: 26.4,
-              Turnovers: 80.4,
-              TwoPointersPercentage: 33.9,
             },
           ]}
         />
