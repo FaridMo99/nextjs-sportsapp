@@ -7,6 +7,7 @@ async function page() {
   //const res = await fetch(`https://api.sportsdata.io/v3/nba/scores/json/PlayersActiveBasic?key=${process.env.API_KEY}`)
   //const players = await res.json()
 
+  const pro = await new Promise((resolve) => setTimeout(resolve, 100000));
   const players = [
     {
       BirthCity: "St. Louis",
@@ -93,6 +94,7 @@ async function page() {
 }
 
 export default page;
+
 //here i have to mock pagination client side because the API
 //doesnt offer these type of endpoints
 
