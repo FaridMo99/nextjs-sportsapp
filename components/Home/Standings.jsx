@@ -70,7 +70,7 @@ function Standings({ teams }) {
                 </TableRow>
               ))
             : easternConference.map((team) => (
-                <TableRow className={`text-${team.Name}-main`}>
+                <TableRow className={`text-${team.Name}-main`} key={team.Name}>
                   <TableCell>{team.position}</TableCell>
                   <TableCell>{team.Name}</TableCell>
                   <TableCell>{team.Wins}</TableCell>
