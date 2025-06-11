@@ -59,7 +59,10 @@ function Standings({ teams }) {
           {isWesternConference
             ? westernConference.map((team) => (
                 <TableRow
-                  className={`bg-${team.Name}-main text-${team.Name}-second`}
+                  styles={{
+                    backgroundColor: `var(--${team.Name}-main)`,
+                    color: `var(--${team.Name}-second)`,
+                  }}
                   key={team.Name}
                 >
                   <TableCell>{team.position}</TableCell>
@@ -70,7 +73,12 @@ function Standings({ teams }) {
                 </TableRow>
               ))
             : easternConference.map((team) => (
-                <TableRow className={`text-${team.Name}-main`} key={team.Name}>
+                <TableRow
+                  styles={{
+                    color: `var(--${team.Name}-main)`,
+                  }}
+                  key={team.Name}
+                >
                   <TableCell>{team.position}</TableCell>
                   <TableCell>{team.Name}</TableCell>
                   <TableCell>{team.Wins}</TableCell>
