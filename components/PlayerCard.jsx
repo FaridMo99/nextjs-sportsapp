@@ -19,14 +19,13 @@ function PlayerCard({ player }) {
     },
   );
 
-  console.log(player);
-
   const feet = Math.floor(player.Height / 12);
   const inches = player.Height % 12;
   const teamName = transformTeamName(player.Team);
 
   return (
     <Card
+      as="section"
       style={{
         backgroundColor: `var(--${teamName[1]}-main)`,
         color: `var(--${teamName[1]}-second)`,

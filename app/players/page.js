@@ -2,6 +2,7 @@ import React from "react";
 import PaginationComp from "@/components/PaginationComp";
 import PlayerCard from "@/components/PlayerCard";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import "server-only";
 
 function splitPlayersArray(players) {
@@ -35,10 +36,13 @@ async function page({ searchParams }) {
   return (
     <main className="flex flex-col items-center flex-grow overflow-auto p-4 gap-6">
       {playersPagination[page - 1].map((player) => (
-        <PlayerCard
+        <Link
+          className="w-full"
+          href={`/players/${player.PlayerID}`}
           key={player.BirthDate + player.FirstName + player.LastName}
-          player={player}
-        />
+        >
+          <PlayerCard player={player} />
+        </Link>
       ))}
       <PaginationComp page={page} length={playersPagination.length} />
     </main>
@@ -49,6 +53,3 @@ export default page;
 
 //here i have to mock pagination client side because the API
 //doesnt offer these type of endpoints
-
-//clicking on player card should intercept modal, refresh sends
-//to real page
