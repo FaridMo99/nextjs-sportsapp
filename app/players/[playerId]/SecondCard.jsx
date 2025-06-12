@@ -21,7 +21,7 @@ function SecondCard({ seasonStats, teamName }) {
 
   return (
     <Card
-      className="w-full md:w-1/3 md:h-full relative md:m-0 my-4"
+      className="w-full md:w-1/3 md:h-full relative md:my-0 md:mx-4 my-4"
       style={{
         backgroundColor: `var(--${teamName[1]}-main)`,
         color: `var(--${teamName[1]}-second)`,
