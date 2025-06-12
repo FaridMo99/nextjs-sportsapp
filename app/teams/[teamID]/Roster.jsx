@@ -1,0 +1,7 @@
+import React from "react";
+
+function Roster({ roster }) {
+  return <section>Roster</section>;
+}
+
+export default Roster;
