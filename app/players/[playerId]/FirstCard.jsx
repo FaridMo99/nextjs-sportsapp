@@ -8,7 +8,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 
-function FirstCard({ player, teamName }) {
+function FirstCard({ bio, teamName }) {
   return (
     <Card
       as="section"
@@ -21,29 +21,28 @@ function FirstCard({ player, teamName }) {
     >
       <CardHeader className="flex justify-between items-center">
         <CardTitle className="text-xl font-semibold">
-          {player.FirstName} {player.LastName}
+          {bio.FirstName} {bio.LastName}
         </CardTitle>
         <User2 size={60} aria-hidden="true" />
       </CardHeader>
       <CardContent className="font-bold">
         <CardDescription className="mb-2 font-semibold">Bio:</CardDescription>
-        <p>Status: {player.Status}</p>
-        <p>In League: {player.Experience} years</p>
-        <p>Team: {player.Team}</p>
-        <p>Position: {player.Position}</p>
-        <p>Number: #{player.Jersey}</p>
-        <p>Salary (yearly): {player.Salary}$</p>
+        <p>Status: {bio.Status}</p>
+        <p>In League: {bio.Experience} years</p>
+        <p>Team: {bio.Team}</p>
+        <p>Position: {bio.Position}</p>
+        <p>Number: #{bio.Jersey}</p>
+        <p>Salary (yearly): {bio.Salary}$</p>
         <p>
-          Height: {Math.floor(player.Height / 12)}&apos; {player.Height % 12}
+          Height: {Math.floor(bio.Height / 12)}&apos; {bio.Height % 12}
           &quot;
         </p>
-        <p>Weight: {player.Weight} lbs</p>
-        <p>Birth Date: {new Date(player.BirthDate).toLocaleDateString()}</p>
+        <p>Weight: {bio.Weight} lbs</p>
+        <p>Birth Date: {new Date(bio.BirthDate).toLocaleDateString()}</p>
         <p>
-          Birth Place: {player.BirthCity}, {player.BirthState},{" "}
-          {player.BirthCountry}
+          Birth Place: {bio.BirthCity}, {bio.BirthState}, {bio.BirthCountry}
         </p>
-        <p>College: {player.College || "N/A"}</p>
+        <p>College: {bio.College || "N/A"}</p>
       </CardContent>
     </Card>
   );
