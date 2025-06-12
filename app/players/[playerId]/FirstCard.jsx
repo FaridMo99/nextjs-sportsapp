@@ -12,7 +12,7 @@ function FirstCard({ bio, teamName }) {
   return (
     <Card
       as="section"
-      className="w-full relative"
+      className="w-full md:w-1/3 md:h-full relative"
       style={{
         backgroundColor: `var(--${teamName[1]}-main)`,
         color: `var(--${teamName[1]}-second)`,

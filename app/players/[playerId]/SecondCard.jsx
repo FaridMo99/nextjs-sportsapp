@@ -21,7 +21,7 @@ function SecondCard({ seasonStats, teamName }) {
 
   return (
     <Card
-      className="w-full relative my-4"
+      className="w-full md:w-1/3 md:h-full relative md:m-0 my-4"
       style={{
         backgroundColor: `var(--${teamName[1]}-main)`,
         color: `var(--${teamName[1]}-second)`,
@@ -29,15 +29,14 @@ function SecondCard({ seasonStats, teamName }) {
       }}
     >
       <CardHeader className="flex justify-between items-center">
+        <BarChart2 size={60} aria-hidden="true" />
         <CardTitle className="text-xl font-semibold">
           {seasonStats.Name} – {seasonStats.Season} Season
         </CardTitle>
-        <BarChart2 size={60} aria-hidden="true" />
       </CardHeader>
-
       <CardContent className="font-bold">
         <CardDescription className="mb-2 font-semibold">
-          Key Season Stats:
+          Season Stats:
         </CardDescription>
         <p>Games Played: {games}</p>
         <p>Points Per Game (PPG): {ppg}</p>

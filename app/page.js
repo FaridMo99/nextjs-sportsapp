@@ -38,13 +38,9 @@ export default async function Home() {
   //const tomorrowsGamesResponse = await fetch(`https://api.sportsdata.io/v3/nba/scores/json/ScoresBasic/${tomorrow}?key=${process.env.API_KEY}`)
   //const tomorrowsGames = await tomorrowsGamesResponse.json()
 
-  //const playersResponse = await fetch(`https://api.sportsdata.io/v3/nba/stats/json/PlayerSeasonStats/${season}?key=${process.env.API_KEY}`)
-  //const players = await playersResponse.json()
-
   //const finishedGames = getGames("Final", todaysGames, yesterdaysGames, tomorrowsGames)
   //const upcomingGames = getGames("Scheduled", todaysGames, yesterdaysGames, tomorrowsGames)
   //const liveGames = getGames("InProgress", todaysGames, yesterdaysGames, tomorrowsGames)
-  //const topPlayers = getTopPlayers(players)
 
   return (
     <main className="flex-grow overflow-auto">
