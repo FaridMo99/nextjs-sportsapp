@@ -1,5 +1,5 @@
 import "server-only";
-import HomeSectionWrapper from "@/components/Home/HomeSectionWrapper";
+import SectionWrapper from "@/components/Home/SectionWrapper";
 import GamesCarousel from "@/components/Home/GamesCarousel";
 import Standings from "@/components/Home/Standings";
 import getCurrentSeason from "@/lib/getCurrentSeason";
@@ -46,7 +46,7 @@ export default async function Home() {
     <main className="flex-grow overflow-auto">
       {/* liveGames.length !== 0 &&       */}
 
-      <HomeSectionWrapper title="Live:">
+      <SectionWrapper title="Live:" home>
         <GamesCarousel
           state="InProgress"
           games={[
@@ -80,9 +80,9 @@ export default async function Home() {
             },
           ]}
         />
-      </HomeSectionWrapper>
+      </SectionWrapper>
 
-      <HomeSectionWrapper title="Upcoming Games:">
+      <SectionWrapper title="Upcoming Games:" home>
         <GamesCarousel
           state="Scheduled"
           games={[
@@ -130,9 +130,9 @@ export default async function Home() {
             },
           ]}
         />
-      </HomeSectionWrapper>
+      </SectionWrapper>
 
-      <HomeSectionWrapper title="Recent Games:">
+      <SectionWrapper title="Recent Games:" home>
         <GamesCarousel
           state="Final"
           games={[
@@ -183,9 +183,9 @@ export default async function Home() {
             },
           ]}
         />
-      </HomeSectionWrapper>
+      </SectionWrapper>
 
-      <HomeSectionWrapper title="Standings:">
+      <SectionWrapper title="Standings:" home>
         <Standings
           teams={[
             {
@@ -218,7 +218,7 @@ export default async function Home() {
             },
           ]}
         />
-      </HomeSectionWrapper>
+      </SectionWrapper>
     </main>
   );
 }

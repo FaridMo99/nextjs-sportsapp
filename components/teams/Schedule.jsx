@@ -1,19 +1,25 @@
 import React from "react";
 import LiveTag from "../LiveTag";
+import SectionWrapper from "../Home/SectionWrapper";
 import { getScheduleById } from "@/lib/getSchedule";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import "server-only";
 
 //every game should be a link to /schedule/[id]
-async function Schedule({ season, id }) {
+async function Schedule({ season, id, teamName }) {
   //const res = await fetch(`https://api.sportsdata.io/v3/nba/scores/json/Games/${season}?key=${process.env.API_KEY}`)
   //const schedule = await res.json()
   //teamSchedule = getScheduleById(schedule, id)
 
   return (
-    <section className="w- mt-4">
-      <h2 className="font-bold text-2xl mb-2">Schedule:</h2>
-      <ScrollArea className="w-full rounded-md border whitespace-nowrap">
+    <SectionWrapper title={"Schedule:"} teamName={teamName}>
+      <ScrollArea
+        style={{
+          backgroundColor: `var(--${teamName[1]}-main)`,
+          border: `2px solid var(--${teamName[1]}-second)`,
+        }}
+        className="w-full rounded-md border whitespace-nowrap"
+      >
         <div className="flex space-x-4 p-4">
           {teamSchedule.map((game) => {
             const isFinal = game.Status === "Final";
@@ -53,7 +59,7 @@ async function Schedule({ season, id }) {
         </div>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
-    </section>
+    </SectionWrapper>
   );
 }
 

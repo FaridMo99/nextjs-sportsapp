@@ -3,23 +3,25 @@ import React from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import transformTeamName from "@/lib/transformTeamName";
+import SectionWrapper from "../Home/SectionWrapper";
 
 function SeasonStatisticsTabs({ statistics, gameLogs }) {
   const teamName = transformTeamName(statistics.Team);
   const opponentNames = gameLogs.map((log) => transformTeamName(log.Opponent));
 
   return (
-    <div
-      style={{
-        backgroundColor: `var(--${teamName[1]}-main)`,
-        color: `var(--${teamName[1]}-second)`,
-        border: `2px solid var(--${teamName[1]}-second)`,
-      }}
-      className="w-full flex flex-col gap-6 p-4 rounded-xl"
-    >
-      <Tabs defaultValue="season-stats" className="w-full">
-        <TabsList className="w-full flex justify-around">
-          <TabsTrigger value="season-stats" className="font-bold">
+    <SectionWrapper title={"Statistics:"} teamName={teamName}>
+      <Tabs
+        style={{
+          backgroundColor: `var(--${teamName[1]}-main)`,
+          color: `var(--${teamName[1]}-second)`,
+          border: `2px solid var(--${teamName[1]}-second)`,
+        }}
+        defaultValue="season-stats"
+        className="w-full  flex flex-col gap-6 p-4 rounded-xl"
+      >
+        <TabsList className="w-full flex justify-around bg-secondary border-1 border-secondary-light">
+          <TabsTrigger value="season-stats" className="font-bold ">
             Season Stats
           </TabsTrigger>
           <TabsTrigger value="game-logs" className="font-bold">
@@ -108,7 +110,7 @@ function SeasonStatisticsTabs({ statistics, gameLogs }) {
           </div>
         </TabsContent>
       </Tabs>
-    </div>
+    </SectionWrapper>
   );
 }
 

@@ -6,6 +6,9 @@ import SeasonStatistics from "../../../components/teams/SeasonStatistics";
 import SelectYear from "../../../components/teams/SelectYear";
 import { notFound } from "next/navigation";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import transformTeamName, {
+  getTeamAbbreviationById,
+} from "@/lib/transformTeamName";
 
 async function page({ params, searchParams }) {
   const { teamID } = await params;
@@ -17,6 +20,9 @@ async function page({ params, searchParams }) {
       ? search.season
       : currentSeason;
 
+  const abbr = getTeamAbbreviationById(teamID);
+  const teamName = transformTeamName(abbr);
+
   for (const [key, value] of Object.entries(search)) {
     if (key !== "season" || parseInt(value) > currentSeason) {
       return notFound();
@@ -27,8 +33,8 @@ async function page({ params, searchParams }) {
     <main className="p-4 flex-grow overflow-auto">
       <SelectYear currentSeason={currentSeason} />
       <Suspense fallback={<LoadingSpinner />}>
-        <Schedule season={season} id={teamID} />
-        <Roster season={season} id={teamID} />
+        <Schedule season={season} id={teamID} teamName={teamName} />
+        <Roster season={season} id={teamID} teamName={teamName} abbr={abbr} />
         <SeasonStatistics season={season} id={teamID} />
       </Suspense>
     </main>

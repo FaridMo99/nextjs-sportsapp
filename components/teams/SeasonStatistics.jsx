@@ -10,11 +10,7 @@ async function SeasonStatistics({ season, id }) {
   //const logs = getTeamGamesById(seasonGamesLogs, id)
   //const teamStats = getTeamById(seasonStats, id)
 
-  return (
-    <section className="w-full">
-      <SeasonStatisticsTabs statistics={teamStats} gameLogs={logs} />
-    </section>
-  );
+  return <SeasonStatisticsTabs statistics={teamStats} gameLogs={logs} />;
 }
 
 export default SeasonStatistics;
