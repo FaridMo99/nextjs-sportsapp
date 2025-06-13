@@ -1,6 +1,6 @@
 import React from "react";
 
-function Roster({ roster }) {
+function Roster({ season }) {
   return <section>Roster</section>;
 }
 

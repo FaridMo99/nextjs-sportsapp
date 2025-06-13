@@ -2,14 +2,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Aside from "@/components/layout/Aside";
-import {
-  House,
-  Calendar,
-  Users,
-  ChartColumn,
-  Trophy,
-  Clock,
-} from "lucide-react";
+import { House, Calendar, Users, Icon, Trophy, Clock } from "lucide-react";
+import { basketball } from "@lucide/lab";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,9 +28,9 @@ export default function RootLayout({ children }) {
     { href: "/schedule", text: "Schedule", icon: <Calendar size={iconSize} /> },
     { href: "/players", text: "Players", icon: <Users size={iconSize} /> },
     {
-      href: "/statistics",
-      text: "Statistics",
-      icon: <ChartColumn size={iconSize} />,
+      href: "/teams",
+      text: "Teams",
+      icon: <Icon iconNode={basketball} size={iconSize} />,
     },
     { href: "/seasons", text: "Seasons", icon: <Clock size={iconSize} /> },
     { href: "/scores", text: "Scores", icon: <Trophy size={iconSize} /> },

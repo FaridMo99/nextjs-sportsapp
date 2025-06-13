@@ -1,44 +1,12 @@
-import { Card } from "@/components/ui/card";
 import React from "react";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import { Skeleton } from "@/components/ui/skeleton";
 
 function loading() {
   return (
     <main className="flex flex-col items-center flex-grow overflow-auto p-4 gap-6">
-      <Card
-        style={{ height: "280px", width: "100%", padding: 0 }}
-        className="overflow-clip"
-      >
-        <div style={{ height: "100%" }}>
-          <Skeleton
-            height="100%"
-            style={{ display: "block", margin: 0, padding: 0 }}
-          />
-        </div>
-      </Card>
-      <Card
-        style={{ height: "280px", width: "100%", padding: 0 }}
-        className="overflow-clip"
-      >
-        <div style={{ height: "100%" }}>
-          <Skeleton
-            height="100%"
-            style={{ display: "block", margin: 0, padding: 0 }}
-          />
-        </div>
-      </Card>
-      <Card
-        style={{ height: "280px", width: "100%", padding: 0 }}
-        className="overflow-clip"
-      >
-        <div style={{ height: "100%" }}>
-          <Skeleton
-            height="100%"
-            style={{ display: "block", margin: 0, padding: 0 }}
-          />
-        </div>
-      </Card>
+      <Skeleton className="w-full h-[280px] overflow-clip p-0 rounded-xl" />
+      <Skeleton className="w-full h-[280px] overflow-clip p-0 rounded-xl" />
+      <Skeleton className="w-full h-[280px] overflow-clip p-0 rounded-xl" />
     </main>
   );
 }

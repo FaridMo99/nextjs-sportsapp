@@ -8,9 +8,67 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import "server-only";
 
-function ThirdCard({ careerStats, teamName }) {
-  const { total, averaged } = careerStats;
+async function calculateCareerStats(playerId, currentSeason, seasons) {
+  const stats = [];
+
+  for (let i = 0; i < seasons; i++) {
+    const season = currentSeason - i;
+
+    const res = await fetch(
+      `https://api.sportsdata.io/v3/nba/stats/json/PlayerSeasonStatsByPlayer/${season}/${playerId}?key=${process.env.API_KEY}`,
+    );
+
+    if (!res.ok) continue;
+
+    const data = await res.json();
+    if (data && data.Games !== 0) {
+      stats.push(data);
+    }
+  }
+
+  if (stats.length === 0) return null;
+
+  const total = stats.reduce((acc, season) => {
+    for (const key in season) {
+      if (typeof season[key] === "number") {
+        acc[key] = (acc[key] || 0) + season[key];
+      }
+    }
+    return acc;
+  }, {});
+
+  const totalGames = total.Games;
+
+  const averaged = {
+    PointsPerGame: (total.Points / totalGames).toFixed(1),
+    AssistsPerGame: (total.Assists / totalGames).toFixed(1),
+    ReboundsPerGame: (total.Rebounds / totalGames).toFixed(1),
+    StealsPerGame: (total.Steals / totalGames).toFixed(1),
+    BlocksPerGame: (total.BlockedShots / totalGames).toFixed(1),
+    FieldGoalsPercentage: (total.FieldGoalsPercentage / stats.length).toFixed(
+      1,
+    ),
+    ThreePointersPercentage: (
+      total.ThreePointersPercentage / stats.length
+    ).toFixed(1),
+    FreeThrowsPercentage: (total.FreeThrowsPercentage / stats.length).toFixed(
+      1,
+    ),
+    Games: totalGames,
+    Seasons: stats.length,
+  };
+
+  return { total, averaged };
+}
+
+async function ThirdCard({ playerId, currentSeason, seasons, teamName }) {
+  const { total, averaged } = await calculateCareerStats(
+    playerId,
+    currentSeason,
+    seasons,
+  );
 
   return (
     <Card

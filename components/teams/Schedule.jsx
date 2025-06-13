@@ -1,6 +1,6 @@
 import React from "react";
 
-function Schedule({ schedule }) {
+function Schedule({ season }) {
   return <section>Schedule</section>;
 }
 

@@ -2,6 +2,7 @@ import "server-only";
 import HomeSectionWrapper from "@/components/Home/HomeSectionWrapper";
 import GamesCarousel from "@/components/Home/GamesCarousel";
 import Standings from "@/components/Home/Standings";
+import getCurrentSeason from "@/lib/getCurrentSeason";
 
 function getDay(offset) {
   const date = new Date();
@@ -23,8 +24,7 @@ export default async function Home() {
   const yesterday = getDay(-1);
   const tomorrow = getDay(1);
 
-  //const seasonResponse = await fetch(`https://api.sportsdata.io/v3/nba/scores/json/CurrentSeason?key=${process.env.API_KEY}`)
-  //const season = await seasonResponse.json()
+  //const season = await getCurrentSeason()
 
   //const standingsResponse = await fetch(`https://api.sportsdata.io/v3/nba/scores/json/Standings/${season}?key=${process.env.API_KEY}`)
   //const standings = await standingsResponse.json()
