@@ -6,6 +6,7 @@ import { Navigation, EffectFade, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
+import LiveTag from "../LiveTag";
 
 function GamesCarousel({ games, state }) {
   return (
@@ -23,12 +24,7 @@ function GamesCarousel({ games, state }) {
       fadeEffect={{ crossFade: true }}
       className="rounded-sm shadow-md h-[40vh] relative"
     >
-      {state === "InProgress" && (
-        <div className="absolute top-2 right-2 z-10 flex items-center justify-between w-14">
-          <p>Live</p>
-          <div className="rounded-full bg-red-600 w-4 h-4 shadow-md shadow-red-500 animate-pulse"></div>
-        </div>
-      )}
+      {state === "InProgress" && <LiveTag />}
       {games.map((game, index) => (
         <SwiperSlide
           key={index}

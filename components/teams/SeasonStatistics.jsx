@@ -18,6 +18,7 @@ async function SeasonStatistics({ season, id }) {
 }
 
 export default SeasonStatistics;
+//each game should be a link to schedule/[id]
 
 const logs = [
   {

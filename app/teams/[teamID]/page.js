@@ -13,7 +13,7 @@ async function page({ params, searchParams }) {
   const search = await searchParams;
   const currentSeason = "2024"; //remove later
   const season =
-    search.season && Object.keys(searchParams).length > 0
+    search.season && Object.keys(search).length > 0
       ? search.season
       : currentSeason;
 
@@ -24,11 +24,11 @@ async function page({ params, searchParams }) {
   }
 
   return (
-    <main className="p-6 w-full">
+    <main className="p-4 flex-grow overflow-auto">
       <SelectYear currentSeason={currentSeason} />
       <Suspense fallback={<LoadingSpinner />}>
-        <Schedule season={season} />
-        <Roster season={season} />
+        <Schedule season={season} id={teamID} />
+        <Roster season={season} id={teamID} />
         <SeasonStatistics season={season} id={teamID} />
       </Suspense>
     </main>
@@ -36,21 +36,3 @@ async function page({ params, searchParams }) {
 }
 
 export default page;
-
-//sections:
-// schedule,
-// roster,
-// stats
-//overall season stats with arrow on side, clicking on arrow opens all games
-//each game is a link to schedule/[id]
-
-//schedules
-//Home and away teams, date and time, season type and week etc. are included. Also includes gameday information. This includes full stadium information (capacity, lat/long, surface etc.), top-line betting information (spread, moneyline, total), weather conditions, and broadcast information.
-//https://api.sportsdata.io/v3/nba/scores/json/Games/${season}?key=${process.env.API_KEY}
-//filter this to get only current teams games
-
-//player details by team (roster)
-//Full player bio and details, including injury notes, for all available players by team.
-//https://api.sportsdata.io/v3/nba/scores/json/Players/${team}?key=${process.env.API_KEY}
-//team as abbreviation like lakers should be LAL
-//look how to implement for seasons that arent the current
