@@ -20,11 +20,17 @@ function SeasonStatisticsTabs({ statistics, gameLogs }) {
         defaultValue="season-stats"
         className="w-full  flex flex-col gap-6 p-4 rounded-xl"
       >
-        <TabsList className="w-full flex justify-around bg-secondary border-1 border-secondary-light">
-          <TabsTrigger value="season-stats" className="font-bold ">
+        <TabsList className="w-full flex justify-around bg-primary border-1 border-secondary-light">
+          <TabsTrigger
+            value="season-stats"
+            className="font-bold text-white data-[state=active]:bg-secondary"
+          >
             Season Stats
           </TabsTrigger>
-          <TabsTrigger value="game-logs" className="font-bold">
+          <TabsTrigger
+            value="game-logs"
+            className="font-bold text-white data-[state=active]:bg-secondary"
+          >
             Game Logs
           </TabsTrigger>
         </TabsList>

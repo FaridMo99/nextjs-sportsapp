@@ -24,7 +24,11 @@ async function page({ params, searchParams }) {
   const teamName = transformTeamName(abbr);
 
   for (const [key, value] of Object.entries(search)) {
-    if (key !== "season" || parseInt(value) > currentSeason) {
+    if (
+      key !== "season" ||
+      parseInt(value) > currentSeason ||
+      parseInt(value) < 1950
+    ) {
       return notFound();
     }
   }
@@ -42,3 +46,4 @@ async function page({ params, searchParams }) {
 }
 
 export default page;
+//past years not allowed so fix that

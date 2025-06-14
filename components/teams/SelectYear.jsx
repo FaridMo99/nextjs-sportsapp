@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
@@ -12,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function SelectYear({ currentSeason }) {
+function SelectYear({ currentSeason, schedule = false }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -25,7 +24,7 @@ function SelectYear({ currentSeason }) {
   };
 
   const seasons = [];
-  for (let year = Number(currentSeason); year >= 2000; year--) {
+  for (let year = Number(currentSeason); year >= 1950; year--) {
     seasons.push(String(year));
   }
 
@@ -38,6 +37,11 @@ function SelectYear({ currentSeason }) {
         <SelectContent className="max-h-[150px] overflow-auto bg-secondary text-white border-secondary-light">
           <SelectGroup>
             <SelectLabel>Season:</SelectLabel>
+            {schedule && (
+              <SelectItem value={String(parseInt(currentSeason) + 1)}>
+                {String(parseInt(currentSeason) + 1)}
+              </SelectItem>
+            )}
             {seasons.map((year) => (
               <SelectItem key={year} value={year}>
                 {year}

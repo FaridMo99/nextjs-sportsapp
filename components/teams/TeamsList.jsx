@@ -31,8 +31,8 @@ function TeamsList({ teams }) {
             <TableRow
               key={team.TeamID}
               style={{
-                color: `var(--${team.Name === "76ers" ? "Sixers" : team.Name}-main)`,
-                backgroundColor: `var(--${team.Name === "76ers" ? "Sixers" : team.Name}-second)`,
+                color: `var(--${team.Name === "76ers" ? "Sixers" : team.Name.replace(/\s+/g, "")}-main)`,
+                backgroundColor: `var(--${team.Name === "76ers" ? "Sixers" : team.Name.replace(/\s+/g, "")}-second)`,
               }}
               className="cursor-pointer hover:brightness-90 transition duration-200"
             >

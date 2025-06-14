@@ -9,7 +9,7 @@ function Aside({ links }) {
 
   return (
     <aside
-      className={`sticky h-[90vh] flex flex-col justify-center left-0 top-[10vh] z-100 ${hovered ? "w-1/4 md:w-1/6" : "w-1/6 md:w-1/10"}`}
+      className={`sticky h-[90vh] flex flex-col justify-center left-0 top-[10vh] z-100 ${hovered ? "min-w-1/4 md:min-w-1/6" : "min-w-1/6 md:min-w-1/10"}`}
     >
       <nav
         onMouseEnter={() => {
@@ -22,7 +22,7 @@ function Aside({ links }) {
       >
         {links.map((link) => (
           <Link
-            className={`hover:bg-secondary-light transition-colors duration-400 rounded-xl mt-4 w-[90%] h-1/10 flex items-center ${hovered ? "justify-between" : "justify-center"} px-4 ${path.endsWith(link.href) ? "text-white" : "text-gray-400"}`}
+            className={`hover:bg-secondary-light transition-colors duration-400 py-6 rounded-md mt-4 w-[90%] h-1/10 flex items-center ${hovered ? "justify-between" : "justify-center"} px-4 ${path.endsWith(link.href) ? "text-white" : "text-gray-400"}`}
             key={link.href}
             href={link.href}
           >

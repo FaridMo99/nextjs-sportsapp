@@ -32,8 +32,7 @@ export default function RootLayout({ children }) {
       text: "Teams",
       icon: <Icon iconNode={basketball} size={iconSize} />,
     },
-    { href: "/seasons", text: "Seasons", icon: <Clock size={iconSize} /> },
-    { href: "/scores", text: "Scores", icon: <Trophy size={iconSize} /> },
+    { href: "/leaders", text: "Leaders", icon: <Trophy size={iconSize} /> },
   ];
 
   return (
@@ -53,3 +52,5 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+//check in select year component if when changing season to the
+//fetched one if it still works or removes recent years

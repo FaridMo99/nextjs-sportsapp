@@ -1,5 +1,6 @@
 import React from "react";
 import TeamsList from "../../components/teams/TeamsList";
+import "server-only";
 
 async function page() {
   const res = await fetch(
