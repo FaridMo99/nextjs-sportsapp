@@ -39,6 +39,12 @@ async function calculateCareerStats(playerId, currentSeason, seasons) {
     return acc;
   }, {});
 
+  for (const key in total) {
+    if (typeof total[key] === "number") {
+      total[key] = Math.trunc(total[key]);
+    }
+  }
+
   const totalGames = total.Games;
 
   const averaged = {

@@ -12,9 +12,8 @@ import transformTeamName, {
 
 async function page({ params, searchParams }) {
   const { teamID } = await params;
-  //const currentSeason = await getCurrentSeason()
+  const currentSeason = await getCurrentSeason();
   const search = await searchParams;
-  const currentSeason = "2024"; //remove later
   const season =
     search.season && Object.keys(search).length > 0
       ? search.season
@@ -22,12 +21,13 @@ async function page({ params, searchParams }) {
 
   const abbr = getTeamAbbreviationById(teamID);
   const teamName = transformTeamName(abbr);
+  const limit = currentSeason - 1;
 
   for (const [key, value] of Object.entries(search)) {
     if (
       key !== "season" ||
       parseInt(value) > currentSeason ||
-      parseInt(value) < 1950
+      parseInt(value) < limit
     ) {
       return notFound();
     }
@@ -35,7 +35,7 @@ async function page({ params, searchParams }) {
 
   return (
     <main className="p-4 flex-grow overflow-auto">
-      <SelectYear currentSeason={currentSeason} />
+      <SelectYear currentSeason={currentSeason.toString()} />
       <Suspense fallback={<LoadingSpinner />}>
         <Schedule season={season} id={teamID} teamName={teamName} />
         <Roster season={season} id={teamID} teamName={teamName} abbr={abbr} />

@@ -59,7 +59,7 @@ function ChatArea() {
   };
 
   return (
-    <PopoverContent className="font-semibold mr-2 border border-bot-orange">
+    <PopoverContent className="font-semibold mr-2 border border-bot-orange flex flex-col justify-between">
       <div ref={scrollArea} className="w-full h-60 overflow-scroll p-2">
         {messages.map((msg, i) => (
           <div
@@ -106,14 +106,14 @@ function ChatArea() {
           name="message"
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          className="border-2 h-8 rounded flex-grow"
+          className="border-2 h-8 w-50 mr-2 rounded"
           type="text"
           placeholder="Ask your Assistant..."
           disabled={pending}
         />
         <button
           disabled={value.length === 0 || pending}
-          className="bg-bot-orange ml-2 px-2 rounded h-8 disabled:bg-gray-300 text-white disabled:cursor-not-allowed"
+          className="bg-bot-orange px-2 rounded  h-8 disabled:bg-gray-300 text-white disabled:cursor-not-allowed"
           type="submit"
         >
           Send

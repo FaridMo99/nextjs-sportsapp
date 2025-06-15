@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function SelectYear({ currentSeason, schedule = false }) {
+function SelectYear({ currentSeason }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -23,8 +23,10 @@ function SelectYear({ currentSeason, schedule = false }) {
     router.replace(`?${params.toString()}`);
   };
 
+  const limit = currentSeason - 1;
+
   const seasons = [];
-  for (let year = Number(currentSeason); year >= 1950; year--) {
+  for (let year = currentSeason; year >= limit; year--) {
     seasons.push(String(year));
   }
 
@@ -37,11 +39,6 @@ function SelectYear({ currentSeason, schedule = false }) {
         <SelectContent className="max-h-[150px] overflow-auto bg-secondary text-white border-secondary-light">
           <SelectGroup>
             <SelectLabel>Season:</SelectLabel>
-            {schedule && (
-              <SelectItem value={String(parseInt(currentSeason) + 1)}>
-                {String(parseInt(currentSeason) + 1)}
-              </SelectItem>
-            )}
             {seasons.map((year) => (
               <SelectItem key={year} value={year}>
                 {year}
@@ -55,3 +52,4 @@ function SelectYear({ currentSeason, schedule = false }) {
 }
 
 export default SelectYear;
+//usually this was meant to go until 1950 but the api free tier doesnt offer that far back

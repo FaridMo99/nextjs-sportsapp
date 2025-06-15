@@ -53,7 +53,7 @@ function Standings({ teams }) {
             <TableHead className="w-[100px] text-white">Name</TableHead>
             <TableHead className="text-white">Wins</TableHead>
             <TableHead className="text-white">Losses</TableHead>
-            <TableHead className="text-white">Percentage</TableHead>
+            <TableHead className="text-white">Pctg</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -69,13 +69,13 @@ function Standings({ teams }) {
                   <TableCell>{team.Name}</TableCell>
                   <TableCell>{team.Wins}</TableCell>
                   <TableCell>{team.Losses}</TableCell>
-                  <TableCell>{team.Percentage}</TableCell>
+                  <TableCell>{team.Percentage.toFixed(2)}</TableCell>
                 </TableRow>
               ))
             : easternConference.map((team) => (
                 <TableRow
                   style={{
-                    color: `var(--${team.Name}-main)`,
+                    color: `var(--${team.Name === "76ers" ? "Sixers" : team.Name}-main)`,
                   }}
                   key={team.Name}
                 >
@@ -83,7 +83,7 @@ function Standings({ teams }) {
                   <TableCell>{team.Name}</TableCell>
                   <TableCell>{team.Wins}</TableCell>
                   <TableCell>{team.Losses}</TableCell>
-                  <TableCell>{team.Percentage}</TableCell>
+                  <TableCell>{team.Percentage.toFixed(2)}</TableCell>
                 </TableRow>
               ))}
         </TableBody>

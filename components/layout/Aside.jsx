@@ -22,7 +22,7 @@ function Aside({ links }) {
       >
         {links.map((link) => (
           <Link
-            className={`hover:bg-secondary-light transition-colors duration-400 py-6 rounded-md mt-4 w-[90%] h-1/10 flex items-center ${hovered ? "justify-between" : "justify-center"} px-4 ${path.endsWith(link.href) ? "text-white" : "text-gray-400"}`}
+            className={`hover:bg-secondary-light transition-colors duration-400 py-6 rounded-md mt-4 w-[90%] h-1/10 flex items-center ${hovered ? "justify-between" : "justify-center"} px-4 ${path.endsWith(link.href) ? "text-white bg-secondary-light brightness-115" : "text-gray-400"}`}
             key={link.href}
             href={link.href}
           >

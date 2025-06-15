@@ -7,7 +7,8 @@ import "server-only";
 
 async function page({ searchParams }) {
   const search = await searchParams;
-  const currentSeason = "2024"; //remove later
+  const currentSeason = await getCurrentSeason();
+
   const season =
     search.season && Object.keys(search).length > 0
       ? search.season
@@ -18,13 +19,14 @@ async function page({ searchParams }) {
   );
   const allPlayersSeasonStats = await res.json();
   const statLeaders = getStatLeaders(allPlayersSeasonStats);
-  //const currentSeason = getCurrentSeason()
+
+  const limit = currentSeason - 1;
 
   for (const [key, value] of Object.entries(search)) {
     if (
       key !== "season" ||
       parseInt(value) > currentSeason ||
-      parseInt(value) < 1950
+      parseInt(value) < limit
     ) {
       return notFound();
     }
@@ -32,7 +34,7 @@ async function page({ searchParams }) {
 
   return (
     <main className="p-4 flex-grow overflow-auto">
-      <SelectYear currentSeason={currentSeason} />
+      <SelectYear currentSeason={currentSeason.toString()} />
       <StatleadersSection leader={statLeaders.total.points} stat="Points" />
       <StatleadersSection
         leader={statLeaders.perGame.pointsPerGame}

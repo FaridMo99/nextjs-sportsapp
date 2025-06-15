@@ -6,17 +6,21 @@ import SectionWrapper from "../Home/SectionWrapper";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 async function Roster({ season, id, teamName, abbr }) {
-  //const res = await fetch(`https://api.sportsdata.io/v3/nba/scores/json/Players/${abbr}?key=${process.env.API_KEY}`)
-  //const roster = await res.json()
+  const res = await fetch(
+    `https://api.sportsdata.io/v3/nba/scores/json/Players/${abbr}?key=${process.env.API_KEY}`,
+  );
+  const roster = await res.json();
+  console.log(roster);
+
+  if (!roster || roster.length === 0)
+    return (
+      <p className="text-2xl w-full flex justify-center items-center font-bold">
+        No Players found...
+      </p>
+    );
 
   return (
     <SectionWrapper title={"Roster:"} teamName={teamName}>
-      {!roster ||
-        (roster.length === 0 && (
-          <p className="text-2xl w-full flex justify-center items-center font-bold">
-            No Players found...
-          </p>
-        ))}
       <ScrollArea
         style={{
           backgroundColor: `var(--${teamName[1]}-main)`,
@@ -26,10 +30,7 @@ async function Roster({ season, id, teamName, abbr }) {
       >
         <div className="flex space-x-4 p-4">
           {roster.map((player) => (
-            <Link
-              href={`/players/${player.PlayerID}`}
-              key={player.SportRadarPlayerID}
-            >
+            <Link href={`/players/${player.PlayerID}`} key={player.PlayerID}>
               <div className="min-w-[270px]">
                 <PlayerCard player={player} />
               </div>
@@ -44,7 +45,7 @@ async function Roster({ season, id, teamName, abbr }) {
 
 export default Roster;
 
-const roster = [
+const roooster = [
   {
     BirthCity: "Brooklyn",
     BirthCountry: "USA",
