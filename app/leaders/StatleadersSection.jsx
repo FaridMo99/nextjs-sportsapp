@@ -32,47 +32,47 @@ function StatleadersSection({ leader, stat }) {
 
   return (
     <section className="my-4">
-        <Link href={`players/${leader.PlayerID}`}>
-      <Card
-        style={{
-          backgroundColor: `var(--${teamName[1]}-main)`,
-          color: `var(--${teamName[1]}-second)`,
-          border: `2px solid var(--${teamName[1]}-second)`,
-        }}
-        className="font-bold text-white rounded-lg shadow-lg"
-      >
-        <CardContent className="p-6">
-          <div className="flex items-center space-x-4 mb-6">
-            <User size={48} />
-            <div>
-              <h2 className="text-2xl font-bold flex items-center gap-2">
-                {leader.Name}
-              </h2>
-              <p className="text-lg opacity-90">
-                {leader.Team} – {leader.Position}
-              </p>
-              <p className="text-lg flex items-center mt-1">
-                {stat}
-                <Crown size={24} className="text-yellow-400 ml-1" />
-              </p>
+      <Link href={`players/${leader.PlayerID}`}>
+        <Card
+          style={{
+            backgroundColor: `var(--${teamName[1]}-main)`,
+            color: `var(--${teamName[1]}-second)`,
+            border: `2px solid var(--${teamName[1]}-second)`,
+          }}
+          className="font-bold text-white rounded-lg shadow-lg"
+        >
+          <CardContent className="p-6">
+            <div className="flex items-center space-x-4 mb-6">
+              <User size={48} />
+              <div>
+                <h2 className="text-2xl font-bold flex items-center gap-2">
+                  {leader.Name}
+                </h2>
+                <p className="text-lg opacity-90">
+                  {leader.Team} – {leader.Position}
+                </p>
+                <p className="text-lg flex items-center mt-1">
+                  {stat}
+                  <Crown size={24} className="text-yellow-400 ml-1" />
+                </p>
+              </div>
             </div>
-          </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
-            {stats.map(({ statKey, mappings }) => {
-              const value = leader[mappings];
-              return (
-                <div key={mappings} className="flex justify-between">
-                  <span>{statKey}:</span>
-                  <span>
-                    {typeof value === "number" ? value.toFixed(2) : value}
-                  </span>{" "}
-                </div>
-              );
-            })}
-          </div>
-        </CardContent>
-      </Card>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+              {stats.map(({ statKey, mappings }) => {
+                const value = leader[mappings];
+                return (
+                  <div key={mappings} className="flex justify-between">
+                    <span>{statKey}:</span>
+                    <span>
+                      {typeof value === "number" ? value.toFixed(2) : value}
+                    </span>{" "}
+                  </div>
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
       </Link>
     </section>
   );

@@ -100,7 +100,7 @@
   --color-Cavaliers-second: var(--Cavaliers-second);
   --color-Wizards-main: var(--Wizards-main);
   --color-Wizards-second: var(--Wizards-second);
-  --color-customGrey: var(--custom-grey);
+  --color-bot-orange: var(--bot-orange);
 }
 
 :root {
@@ -199,7 +199,7 @@
   --Wizards-second: #e31837;
   --Base-main: #191b40;
   --Base-second: #3b1c1e;
-  --custom-grey: #242424;
+  --bot-orange: rgba(255, 153, 0);
 }
 
 .dark {
@@ -242,5 +242,24 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+.ai {
+  animation-name: glow;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  border: 2px solid;
+  box-sizing: content-box;
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    border-color: white;
+  }
+  50% {
+    border-color: var(--bot-orange);
   }
 }

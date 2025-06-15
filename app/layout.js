@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header";
 import Aside from "@/components/layout/Aside";
 import { House, Calendar, Users, Icon, Trophy, Clock } from "lucide-react";
 import { basketball } from "@lucide/lab";
+import Chat from "@/components/AI/Chat";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,6 +49,7 @@ export default function RootLayout({ children }) {
           <Aside links={links} />
           {children}
         </div>
+        <Chat />
       </body>
     </html>
   );
