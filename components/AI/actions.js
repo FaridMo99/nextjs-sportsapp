@@ -9,29 +9,32 @@ const openai = new OpenAI({
 export async function message(prevState, formData) {
   try {
     const userMessage = formData.get("message");
+    const history = JSON.parse(formData.get("history") || "[]");
 
-    if (!userMessage) {
-      return { error: "No message provided" };
-    }
-
-    console.log("User message:", userMessage);
+    const messages = [
+      {
+        role: "system",
+        content: `
+          You are Bally, a friendly goofy basketball assistant. 
+          You only answer questions related to basketball.
+          If someone asks about anything unrelated to basketball politely decline and move the conversation to basketball. 
+          You also remember previous prompts and context.
+        `,
+      },
+      ...history,
+      { role: "user", content: userMessage },
+    ];
 
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are Bally, a Basketball AI assistant that only answers questions about basketball, everything else you kindly refuse.",
-        },
-        { role: "user", content: userMessage },
-      ],
+      messages,
     });
 
     const reply = response.choices?.[0]?.message?.content ?? "Sorry, no reply.";
-
     return { reply };
   } catch (error) {
+    console.error("OpenAI API Error:", error);
+
     return { error: "Failed to get response from AI" };
   }
 }

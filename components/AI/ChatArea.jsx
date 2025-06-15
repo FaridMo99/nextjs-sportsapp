@@ -37,12 +37,24 @@ function ChatArea() {
 
     if (!value.trim()) return;
 
-    setMessages((msgs) => [...msgs, { from: "user", text: value }]);
+    const newMessages = [...messages, { from: "user", text: value }];
+    setMessages(newMessages);
 
     const formData = new FormData(e.target);
+    formData.append(
+      "history",
+      JSON.stringify(
+        newMessages.map((msg) => ({
+          role: msg.from === "user" ? "user" : "assistant",
+          content: msg.text,
+        })),
+      ),
+    );
+
     startTransition(() => {
       action(formData);
     });
+
     setValue("");
   };
 
