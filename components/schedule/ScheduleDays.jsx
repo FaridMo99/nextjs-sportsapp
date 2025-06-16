@@ -4,8 +4,6 @@ import { Card, CardContent } from "@/components/ui/card";
 function ScheduleDays({ daysData }) {
   const dayKeys = Object.keys(daysData).sort();
 
-  console.log(daysData);
-
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       {dayKeys.map((day) => (

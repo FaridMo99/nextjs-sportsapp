@@ -37,7 +37,7 @@ async function page({ searchParams }) {
 
   return (
     <main className="p-4 flex-grow overflow-auto">
-      <SelectYear currentSeason={currentSeason.toString()} schedule />
+      <SelectYear currentSeason={currentSeason.toString()} />
       <ScheduleAccordion schedule={schedule} />
     </main>
   );
