@@ -2,6 +2,7 @@ import React from "react";
 import "server-only";
 import GameCard from "./GameCard";
 import QuarterTabs from "./QuarterTabs";
+import TeamStatsSlider from "./TeamStatsSlider";
 
 async function page({ id }) {
   const GameID = 21022;
@@ -21,6 +22,7 @@ async function page({ id }) {
         hometeamId={Game.HomeTeamID}
         awayteamId={Game.AwayTeamID}
       />
+      <TeamStatsSlider teamGames={TeamGames} />
     </main>
   );
 }
@@ -32,8 +34,6 @@ export default page;
 
 /*const obj = {
   PlayerGames: [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
-  Quarters:[{…}, {…}, {…}, {…}]
-  TeamGames: [{…}, {…}]
 }*/
 
 /*const PlayerGames = [
@@ -192,40 +192,7 @@ YahooPosition:"SF"
 YahooSalary:64
 }
 ] 18stück*/
-/*const Quarters = [
-{
-AwayScore:41
-GameID:21022
-HomeScore:74
-Name:"1"
-Number:1
-QuarterID:168917
-},
-{
-AwayScore:53
-GameID:21022
-HomeScore:53
-Name:"2"
-Number:2
-QuarterID:168918
-},
-{
-AwayScore:55
-GameID:21022
-HomeScore:67
-Name:"3"
-Number:3
-QuarterID:168919
-},
-{
-AwayScore:38
-GameID:21022
-HomeScore:33
-Name:"4"
-Number:4
-QuarterID:168920
-}
-] */
+
 /*const TeamGames = [
 {
 Assists:4

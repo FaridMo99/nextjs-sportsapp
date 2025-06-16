@@ -5,7 +5,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 function QuarterTabs({ quarters, hometeam, awayteam, hometeamId, awayteamId }) {
   return (
-    <Tabs defaultValue={quarters[0]?.Name} className="w-full mt-6">
+    <Tabs as="section" defaultValue={quarters[0]?.Name} className="w-full mt-6">
       <TabsList className="flex items-center justify-evenly bg-secondary border-1 border-secondary-light">
         {quarters.map((q) => (
           <TabsTrigger
@@ -48,38 +48,3 @@ function QuarterTabs({ quarters, hometeam, awayteam, hometeamId, awayteamId }) {
 }
 
 export default QuarterTabs;
-
-/*Quarters = [
-{
-AwayScore:41
-GameID:21022
-HomeScore:74
-Name:"1"
-Number:1
-QuarterID:168917
-},
-{
-AwayScore:53
-GameID:21022
-HomeScore:53
-Name:"2"
-Number:2
-QuarterID:168918
-},
-{
-AwayScore:55
-GameID:21022
-HomeScore:67
-Name:"3"
-Number:3
-QuarterID:168919
-},
-{
-AwayScore:38
-GameID:21022
-HomeScore:33
-Name:"4"
-Number:4
-QuarterID:168920
-}
-] */

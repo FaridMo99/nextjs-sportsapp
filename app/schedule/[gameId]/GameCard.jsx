@@ -28,7 +28,10 @@ function GameCard({ game }) {
   const formattedDate = format(new Date(DateTime), "PPP p");
 
   return (
-    <Card className="w-full mx-auto relative bg-secondary border-secondary-light text-white">
+    <Card
+      as="section"
+      className="w-full mx-auto relative bg-secondary border-secondary-light text-white"
+    >
       {Status === "InProgress" && <LiveTag />}
       <CardHeader>
         <CardTitle className="text-xl font-bold">
