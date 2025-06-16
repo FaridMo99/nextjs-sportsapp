@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import transformTeamName from "@/lib/transformTeamName";
-
+import Link from "next/link";
 function TeamStatsSlider({ teamGames }) {
   const containerRef = useRef(null);
   const [sliderX, setSliderX] = useState(50);
@@ -34,7 +34,9 @@ function TeamStatsSlider({ teamGames }) {
             className="w-full h-full"
           >
             <CardContent className="pt-4 space-y-1 flex flex-col items-end">
-              <h2 className="text-xl font-semibold">{teamB.Name}</h2>
+              <h2 className="text-xl font-semibold">
+                <Link href={`teams/${teamB.TeamID}`}>{teamB.Name}</Link>
+              </h2>
               <p>Points: {teamB.Points}</p>
               <p>Rebounds: {teamB.Rebounds}</p>
               <p>Assists: {teamB.Assists}</p>
@@ -59,7 +61,9 @@ function TeamStatsSlider({ teamGames }) {
             className="w-full h-full"
           >
             <CardContent className="pt-4 space-y-1">
-              <h2 className="text-xl font-semibold min-w-40">{teamA.Name}</h2>
+              <h2 className="text-xl font-semibold min-w-40">
+                <Link href={`teams/${teamA.TeamID}`}>{teamA.Name}</Link>
+              </h2>
               <p className="w-30">Points: {teamA.Points}</p>
               <p className="w-30">Rebounds: {teamA.Rebounds}</p>
               <p className="w-30">Assists: {teamA.Assists}</p>
