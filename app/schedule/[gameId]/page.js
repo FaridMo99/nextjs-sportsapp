@@ -6,9 +6,10 @@ import TeamStatsSlider from "./TeamStatsSlider";
 import PlayersStats from "./PlayersStats";
 import StartingLineup from "./StartingLineup";
 
-async function page({ id }) {
+async function page({ params }) {
+  const { gameId } = await params;
   const res = await fetch(
-    `https://api.sportsdata.io/v3/nba/stats/json/BoxScore/${id}?key=${process.env.API_KEY}`,
+    `https://api.sportsdata.io/v3/nba/stats/json/BoxScore/${gameId}?key=${process.env.API_KEY}`,
   );
   const game = await res.json();
   const { Game, PlayerGames, Quarters, TeamGames } = game;

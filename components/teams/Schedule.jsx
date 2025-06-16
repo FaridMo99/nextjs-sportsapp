@@ -3,6 +3,7 @@ import LiveTag from "../LiveTag";
 import SectionWrapper from "../Home/SectionWrapper";
 import { getScheduleById } from "@/lib/getSchedule";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import Link from "next/link";
 import "server-only";
 
 async function Schedule({ season, id, teamName }) {
@@ -11,6 +12,8 @@ async function Schedule({ season, id, teamName }) {
   );
   const schedule = await res.json();
   const teamSchedule = getScheduleById(schedule, Number(id));
+
+  console.log(teamSchedule);
 
   return (
     <SectionWrapper title={"Schedule:"} teamName={teamName}>
@@ -35,13 +38,17 @@ async function Schedule({ season, id, teamName }) {
                 }`}
               >
                 <p className="text-xs font-semibold">
-                  {new Date(game.DateTime).toLocaleDateString()}
+                  <Link href={`/schedule/${game.GameID}`}>
+                    {new Date(game.DateTime).toLocaleDateString()}
+                  </Link>
                 </p>
 
                 {isLive && <LiveTag />}
 
                 <p className="text-sm font-bold">
-                  {game.AwayTeam} @ {game.HomeTeam}
+                  <Link href={`/schedule/${game.GameID}`}>
+                    {game.AwayTeam} @ {game.HomeTeam}
+                  </Link>
                 </p>
 
                 {isFinal && (
@@ -52,7 +59,9 @@ async function Schedule({ season, id, teamName }) {
                 )}
 
                 {isScheduled && (
-                  <p className="text-xs text-gray-500">Scheduled</p>
+                  <p className="text-xs text-gray-500">
+                    <Link href={`/schedule/${game.GameID}`}>Scheduled</Link>
+                  </p>
                 )}
               </div>
             );

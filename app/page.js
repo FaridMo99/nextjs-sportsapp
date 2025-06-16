@@ -96,7 +96,3 @@ export default async function Home() {
     </main>
   );
 }
-
-//all things should also be links
-//add if length == 0 no games found...
-//season is a integer not string

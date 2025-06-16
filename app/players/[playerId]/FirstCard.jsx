@@ -7,6 +7,7 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import Link from "next/link";
 
 function FirstCard({ bio, teamName }) {
   return (
@@ -29,7 +30,12 @@ function FirstCard({ bio, teamName }) {
         <CardDescription className="mb-2 font-semibold">Bio:</CardDescription>
         <p>Status: {bio.Status}</p>
         <p>In League: {bio.Experience} years</p>
-        <p>Team: {bio.Team}</p>
+        <p>
+          Team:{" "}
+          <Link className="hover:underline" href={`/teams/${bio.TeamID}`}>
+            {bio.Team}
+          </Link>
+        </p>
         <p>Position: {bio.Position}</p>
         <p>Number: #{bio.Jersey}</p>
         <p>Salary (yearly): {bio.Salary}$</p>

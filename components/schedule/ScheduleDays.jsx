@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
 
 function ScheduleDays({ daysData }) {
   const dayKeys = Object.keys(daysData).sort();
@@ -18,12 +19,17 @@ function ScheduleDays({ daysData }) {
             {daysData[day].length > 0 ? (
               <ul className="text-white text-sm space-y-1 font-semibold">
                 {daysData[day].map((game) => (
-                  <li key={game.GameID}>
-                    {game.AwayTeam} @ {game.HomeTeam} -{" "}
-                    {new Date(game.DateTime).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
+                  <li key={game.GameID} className="mb-2">
+                    <Link
+                      href={`/schedule/${game.GameID}`}
+                      className="hover:underline w-full"
+                    >
+                      {game.AwayTeam} @ {game.HomeTeam} -{" "}
+                      {new Date(game.DateTime).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </Link>
                   </li>
                 ))}
               </ul>

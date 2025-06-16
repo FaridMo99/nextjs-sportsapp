@@ -62,7 +62,7 @@ function TeamStatsSlider({ teamGames }) {
           >
             <CardContent className="pt-4 space-y-1">
               <h2 className="text-xl font-semibold min-w-40">
-                <Link href={`teams/${teamA.TeamID}`}>{teamA.Name}</Link>
+                <Link href={`/teams/${teamA.TeamID}`}>{teamA.Name}</Link>
               </h2>
               <p className="w-30">Points: {teamA.Points}</p>
               <p className="w-30">Rebounds: {teamA.Rebounds}</p>

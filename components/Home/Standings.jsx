@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import Link from "next/link";
 
 function sortTeamsToConference(conference, teams) {
   const conferenceArray = teams.filter(
@@ -34,7 +35,7 @@ function Standings({ teams }) {
   const [isWesternConference, setConference] = useState(true);
 
   if (teams.length === 0) return <p>No Standings found...</p>;
-
+  console.log(teams);
   return (
     <>
       <div className="absolute top-6 font-bold text-secondary-light text-xl right-6 justify-between items-center w-24 h-6 flex">
@@ -66,7 +67,9 @@ function Standings({ teams }) {
                   key={team.Name}
                 >
                   <TableCell className="text-white">{team.position}</TableCell>
-                  <TableCell>{team.Name}</TableCell>
+                  <TableCell>
+                    <Link href={`/teams/${team.TeamID}`}>{team.Name}</Link>
+                  </TableCell>
                   <TableCell>{team.Wins}</TableCell>
                   <TableCell>{team.Losses}</TableCell>
                   <TableCell>{team.Percentage.toFixed(2)}</TableCell>
@@ -80,7 +83,9 @@ function Standings({ teams }) {
                   key={team.Name}
                 >
                   <TableCell className="text-white">{team.position}</TableCell>
-                  <TableCell>{team.Name}</TableCell>
+                  <TableCell>
+                    <Link href={`/teams/${team.TeamID}`}>{team.Name}</Link>
+                  </TableCell>
                   <TableCell>{team.Wins}</TableCell>
                   <TableCell>{team.Losses}</TableCell>
                   <TableCell>{team.Percentage.toFixed(2)}</TableCell>

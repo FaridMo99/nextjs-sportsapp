@@ -10,7 +10,6 @@ async function Roster({ season, id, teamName, abbr }) {
     `https://api.sportsdata.io/v3/nba/scores/json/Players/${abbr}?key=${process.env.API_KEY}`,
   );
   const roster = await res.json();
-  console.log(roster);
 
   if (!roster || roster.length === 0)
     return (
