@@ -59,8 +59,14 @@ function GameCard({ game }) {
           <p>
             Status: <strong>{Status}</strong>
           </p>
-          <p>Over/Under: {OverUnder}</p>
-          <p>Point Spread: {PointSpread}</p>
+          {Status !== "Postponed" ||
+            (Status !== "Canceled" && (
+              <>
+                {" "}
+                <p>Over/Under: {OverUnder}</p>
+                <p>Point Spread: {PointSpread}</p>
+              </>
+            ))}
         </div>
       </CardContent>
     </Card>

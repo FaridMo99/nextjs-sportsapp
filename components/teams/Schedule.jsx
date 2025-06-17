@@ -13,8 +13,6 @@ async function Schedule({ season, id, teamName }) {
   const schedule = await res.json();
   const teamSchedule = getScheduleById(schedule, Number(id));
 
-  console.log(teamSchedule);
-
   return (
     <SectionWrapper title={"Schedule:"} teamName={teamName}>
       <ScrollArea
@@ -26,15 +24,19 @@ async function Schedule({ season, id, teamName }) {
       >
         <div className="flex space-x-4 p-4">
           {teamSchedule.map((game) => {
-            const isFinal = game.Status === "Final";
+            const isFinal = game.Status === "Final" || game.Status === "F/OT";
             const isLive = game.Status === "InProgress";
             const isScheduled = game.Status === "Scheduled";
+            const isCanceled = game.Status === "Canceled";
+            const isPostponed = game.Status === "Postponed";
 
             return (
               <div
                 key={game.GameID}
                 className={`min-w-[180px] rounded-md p-4 flex flex-col gap-2 relative ${
-                  isFinal ? "bg-gray-300 text-gray-700" : "bg-white text-black"
+                  isFinal || isPostponed || isCanceled
+                    ? "bg-gray-300 text-gray-700"
+                    : "bg-white text-black"
                 }`}
               >
                 <p className="text-xs font-semibold">
@@ -44,6 +46,12 @@ async function Schedule({ season, id, teamName }) {
                 </p>
 
                 {isLive && <LiveTag />}
+                {isCanceled && (
+                  <p className="absolute top-2 right-2 text-xs">Canceled</p>
+                )}
+                {isPostponed && (
+                  <p className="absolute top-2 right-2 text-xs">Postponed</p>
+                )}
 
                 <p className="text-sm font-bold">
                   <Link href={`/schedule/${game.GameID}`}>

@@ -1,25 +1,24 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Aside from "@/components/layout/Aside";
-import { House, Calendar, Users, Icon, Trophy, Clock } from "lucide-react";
+import { House, Calendar, Users, Icon, Trophy } from "lucide-react";
 import { basketball } from "@lucide/lab";
 import Chat from "@/components/AI/Chat";
 import Footer from "@/components/layout/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const bebas = Bebas_Neue({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
 });
 
 export const metadata = {
   title: "HoopTracker",
   description: "Basketball statistics page",
+  icons: {
+    icon: "/hooptracker-logo.png",
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -39,9 +38,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={bebas.className}>
         <Header
           limit={75}
           scrollColor="bg-secondary outline-1 outline-secondary-light"

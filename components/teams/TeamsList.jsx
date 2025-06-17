@@ -11,7 +11,7 @@ import {
 
 function TeamsList({ teams }) {
   return (
-    <main className="flex-grow p-6 max-w-6xl mx-auto">
+    <main className="flex-grow p-6  mx-auto">
       <h1 className="text-3xl font-bold mb-8 text-white text-center">
         NBA Teams
       </h1>

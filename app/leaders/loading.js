@@ -1,8 +1,8 @@
-import React from "react";
 import CardLoader from "@/components/CardLoader";
+import React from "react";
 
 function loading() {
-  return <CardLoader amount={3} />;
+  return <CardLoader big amount={2} />;
 }
 
 export default loading;

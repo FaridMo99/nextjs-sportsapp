@@ -36,7 +36,7 @@ export default async function Page({ params }) {
   const teamName = transformTeamName(bio.Team);
 
   return (
-    <main className="flex-grow md:flex md:justify-evenly overflow-auto rounded-2xl p-4 m-3">
+    <main className="flex-grow md:flex md:justify-evenly rounded-2xl p-4 m-3">
       <FirstCard bio={bio} teamName={teamName} />
       <SecondCard seasonStats={seasonStats} teamName={teamName} />
       <Suspense fallback={<LoadingSpinner />}>

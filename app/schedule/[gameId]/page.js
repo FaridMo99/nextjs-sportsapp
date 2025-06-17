@@ -14,24 +14,33 @@ async function page({ params }) {
   const game = await res.json();
   const { Game, PlayerGames, Quarters, TeamGames } = game;
 
+  if (Game.Status === "Postponed" || Game.Status === "Canceled")
+    return (
+      <main className="p-4 flex-grow overflow-auto">
+        <GameCard game={Game} />
+      </main>
+    );
+
+  if (Game.Status === "Scheduled")
+    return (
+      <main className="p-4 flex-grow overflow-auto">
+        <GameCard game={Game} />
+        <StartingLineup players={PlayerGames} />
+      </main>
+    );
+
   return (
     <main className="p-4 flex-grow overflow-auto">
       <GameCard game={Game} />
-      {Game.Status !== "Scheduled" ? (
-        <>
-          <QuarterTabs
-            quarters={Quarters}
-            hometeam={Game.HomeTeam}
-            awayteam={Game.AwayTeam}
-            hometeamId={Game.HomeTeamID}
-            awayteamId={Game.AwayTeamID}
-          />
-          <TeamStatsSlider teamGames={TeamGames} />
-          <PlayersStats players={PlayerGames} />
-        </>
-      ) : (
-        <StartingLineup players={PlayerGames} />
-      )}
+      <QuarterTabs
+        quarters={Quarters}
+        hometeam={Game.HomeTeam}
+        awayteam={Game.AwayTeam}
+        hometeamId={Game.HomeTeamID}
+        awayteamId={Game.AwayTeamID}
+      />
+      <TeamStatsSlider teamGames={TeamGames} />
+      <PlayersStats players={PlayerGames} />
     </main>
   );
 }

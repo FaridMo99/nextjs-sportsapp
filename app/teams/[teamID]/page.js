@@ -5,10 +5,10 @@ import Roster from "../../../components/teams/Roster";
 import SeasonStatistics from "../../../components/teams/SeasonStatistics";
 import SelectYear from "../../../components/teams/SelectYear";
 import { notFound } from "next/navigation";
-import LoadingSpinner from "@/components/LoadingSpinner";
 import transformTeamName, {
   getTeamAbbreviationById,
 } from "@/lib/transformTeamName";
+import CardLoader from "@/components/CardLoader";
 
 async function page({ params, searchParams }) {
   const { teamID } = await params;
@@ -36,7 +36,7 @@ async function page({ params, searchParams }) {
   return (
     <main className="p-4 flex-grow overflow-auto">
       <SelectYear currentSeason={currentSeason.toString()} />
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense fallback={<CardLoader amount={3} />}>
         <Schedule season={season} id={teamID} teamName={teamName} />
         <Roster season={season} id={teamID} teamName={teamName} abbr={abbr} />
         <SeasonStatistics season={season} id={teamID} />
