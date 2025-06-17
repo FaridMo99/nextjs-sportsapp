@@ -44,6 +44,3 @@ async function page({ searchParams }) {
 }
 
 export default page;
-//nested dynamic route by gameId, for every single game data
-//not allowed to go to previous seasons so give disclaimer and block it
-//give hint everything only regular season

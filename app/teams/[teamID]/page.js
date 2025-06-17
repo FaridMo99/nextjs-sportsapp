@@ -46,4 +46,3 @@ async function page({ params, searchParams }) {
 }
 
 export default page;
-//past years not allowed so fix that

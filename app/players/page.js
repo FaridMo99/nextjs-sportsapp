@@ -34,17 +34,22 @@ async function page({ searchParams }) {
   }
 
   return (
-    <main className="flex flex-col items-center flex-grow overflow-auto p-4 gap-6">
-      {playersPagination[page - 1].map((player) => (
-        <Link
-          className="w-full"
-          href={`/players/${player.PlayerID}`}
-          key={player.BirthDate + player.FirstName + player.LastName}
-        >
-          <PlayerCard player={player} />
-        </Link>
-      ))}
-      <PaginationComp page={page} length={playersPagination.length} />
+    <main className="flex flex-col flex-grow overflow-auto p-4 gap-6">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-6 w-full">
+        {playersPagination[page - 1].map((player) => (
+          <Link
+            className="w-full"
+            href={`/players/${player.PlayerID}`}
+            key={player.BirthDate + player.FirstName + player.LastName}
+          >
+            <PlayerCard player={player} />
+          </Link>
+        ))}
+      </div>
+
+      <div className="flex justify-center w-full">
+        <PaginationComp page={page} length={playersPagination.length} />
+      </div>
     </main>
   );
 }

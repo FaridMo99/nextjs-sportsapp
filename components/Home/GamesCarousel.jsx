@@ -9,6 +9,7 @@ import "swiper/css/effect-fade";
 import LiveTag from "../LiveTag";
 
 function GamesCarousel({ games, state }) {
+  console.log(games);
   return (
     <Swiper
       modules={[Navigation, EffectFade, Autoplay]}
@@ -22,7 +23,7 @@ function GamesCarousel({ games, state }) {
       loop
       speed={1500}
       fadeEffect={{ crossFade: true }}
-      className="rounded-sm shadow-md h-[40vh] relative"
+      className="rounded-sm shadow-md h-[15vh] relative"
     >
       {state === "InProgress" && <LiveTag />}
       {games.map((game, index) => (
@@ -36,11 +37,13 @@ function GamesCarousel({ games, state }) {
             </Link>
           </p>
           <p className="text-sm text-gray-500">
-            {state !== "InProgress" && game.DateTime.replace("T", " ")}
+            {state !== "InProgress" &&
+              game.DateTime.replace("T", " ").slice(0, 16)}
           </p>
-          {state === "Finished" && (
-            <p className="mt-2 font-semibold">
-              Final Score: {game.AwayTeamScore} - {game.HomeTeamScore}
+          {state === "Final" && (
+            <p className="mt-2 font-semibold absolute top-2 right-4">
+              {game.AwayTeam} {game.AwayTeamScore} <br /> {game.HomeTeam}{" "}
+              {game.HomeTeamScore}
             </p>
           )}
         </SwiperSlide>

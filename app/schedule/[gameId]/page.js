@@ -37,4 +37,3 @@ async function page({ params }) {
 }
 
 export default page;
-//if game "Scheduled" give starting lineups

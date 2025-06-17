@@ -5,6 +5,7 @@ import Aside from "@/components/layout/Aside";
 import { House, Calendar, Users, Icon, Trophy, Clock } from "lucide-react";
 import { basketball } from "@lucide/lab";
 import Chat from "@/components/AI/Chat";
+import Footer from "@/components/layout/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,7 +43,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Header
-          limit={50}
+          limit={75}
           scrollColor="bg-secondary outline-1 outline-secondary-light"
         />
         <div className="flex">
@@ -50,9 +51,8 @@ export default function RootLayout({ children }) {
           {children}
         </div>
         <Chat />
+        <Footer />
       </body>
     </html>
   );
 }
-//check in select year component if when changing season to the
-//fetched one if it still works or removes recent years

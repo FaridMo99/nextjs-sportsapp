@@ -34,7 +34,7 @@ function Header({ limit, scrollColor }) {
           src="/hooptracker-logo.png"
           alt="hooptracker logo"
           fill={true}
-          sizes={100}
+          sizes="100px"
         />
       </Link>
       <Search />
