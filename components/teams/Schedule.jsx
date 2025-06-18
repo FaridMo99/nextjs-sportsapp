@@ -5,12 +5,12 @@ import { getScheduleById } from "@/lib/getSchedule";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import Link from "next/link";
 import "server-only";
+import getData from "@/lib/getData";
 
 async function Schedule({ season, id, teamName }) {
-  const res = await fetch(
+  const schedule = await getData(
     `https://api.sportsdata.io/v3/nba/scores/json/Games/${season}?key=${process.env.API_KEY}`,
   );
-  const schedule = await res.json();
   const teamSchedule = getScheduleById(schedule, Number(id));
 
   return (

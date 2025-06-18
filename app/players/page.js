@@ -4,6 +4,7 @@ import PlayerCard from "@/components/PlayerCard";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import "server-only";
+import getData from "@/lib/getData";
 
 function splitPlayersArray(players) {
   const newArr = [];
@@ -18,10 +19,9 @@ function splitPlayersArray(players) {
 }
 
 async function page({ searchParams }) {
-  const res = await fetch(
+  const players = await getData(
     `https://api.sportsdata.io/v3/nba/scores/json/PlayersActiveBasic?key=${process.env.API_KEY}`,
   );
-  const players = await res.json();
 
   const params = await searchParams;
 

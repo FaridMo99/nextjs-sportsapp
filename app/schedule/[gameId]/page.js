@@ -5,13 +5,14 @@ import QuarterTabs from "./QuarterTabs";
 import TeamStatsSlider from "./TeamStatsSlider";
 import PlayersStats from "./PlayersStats";
 import StartingLineup from "./StartingLineup";
+import getData from "@/lib/getData";
 
 async function page({ params }) {
   const { gameId } = await params;
-  const res = await fetch(
+
+  const game = await getData(
     `https://api.sportsdata.io/v3/nba/stats/json/BoxScore/${gameId}?key=${process.env.API_KEY}`,
   );
-  const game = await res.json();
   const { Game, PlayerGames, Quarters, TeamGames } = game;
 
   if (Game.Status === "Postponed" || Game.Status === "Canceled")

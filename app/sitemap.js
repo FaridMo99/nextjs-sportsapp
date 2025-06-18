@@ -1,21 +1,21 @@
+import getCurrentSeason from "@/lib/getCurrentSeason";
+import getData from "@/lib/getData";
+
 export default async function sitemap() {
   const domain = process.env.NEXT_PUBLIC_DOMAIN;
 
-  const [teamsRes, playersRes, gamesRes] = await Promise.all([
-    fetch(
+  const season = await getCurrentSeason();
+
+  const [teams, players, games] = await Promise.all([
+    getData(
       `https://api.sportsdata.io/v3/nba/scores/json/teams?key=${process.env.API_KEY}`,
     ),
-    fetch(
+    getData(
       `https://api.sportsdata.io/v3/nba/scores/json/PlayersActiveBasic?key=${process.env.API_KEY}`,
     ),
-    fetch(
+    getData(
       `https://api.sportsdata.io/v3/nba/scores/json/Games/${season}?key=${process.env.API_KEY}`,
     ),
-  ]);
-  const [teams, players, games] = await Promise.all([
-    teamsRes.json(),
-    playersRes.json(),
-    gamesRes.json(),
   ]);
 
   const staticRoutes = [

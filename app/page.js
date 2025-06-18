@@ -3,6 +3,7 @@ import SectionWrapper from "@/components/Home/SectionWrapper";
 import GamesCarousel from "@/components/Home/GamesCarousel";
 import Standings from "@/components/Home/Standings";
 import getCurrentSeason from "@/lib/getCurrentSeason";
+import getData from "@/lib/getData";
 
 function getDay(offset) {
   const date = new Date();
@@ -25,32 +26,20 @@ export default async function Home() {
   const tomorrow = getDay(1);
 
   const season = await getCurrentSeason();
-
-  const [
-    standingsResponse,
-    todaysGamesResponse,
-    yesterdaysGamesResponse,
-    tomorrowsGamesResponse,
-  ] = await Promise.all([
-    fetch(
-      `https://api.sportsdata.io/v3/nba/scores/json/Standings/${season}?key=${process.env.API_KEY}`,
-    ),
-    fetch(
-      `https://api.sportsdata.io/v3/nba/scores/json/ScoresBasic/${today}?key=${process.env.API_KEY}`,
-    ),
-    fetch(
-      `https://api.sportsdata.io/v3/nba/scores/json/ScoresBasic/${yesterday}?key=${process.env.API_KEY}`,
-    ),
-    fetch(
-      `https://api.sportsdata.io/v3/nba/scores/json/ScoresBasic/${tomorrow}?key=${process.env.API_KEY}`,
-    ),
-  ]);
   const [standings, todaysGames, yesterdaysGames, tomorrowsGames] =
     await Promise.all([
-      standingsResponse.json(),
-      todaysGamesResponse.json(),
-      yesterdaysGamesResponse.json(),
-      tomorrowsGamesResponse.json(),
+      getData(
+        `https://api.sportsdata.io/v3/nba/scores/json/Standings/${season}?key=${process.env.API_KEY}`,
+      ),
+      getData(
+        `https://api.sportsdata.io/v3/nba/scores/json/ScoresBasic/${today}?key=${process.env.API_KEY}`,
+      ),
+      getData(
+        `https://api.sportsdata.io/v3/nba/scores/json/ScoresBasic/${yesterday}?key=${process.env.API_KEY}`,
+      ),
+      getData(
+        `https://api.sportsdata.io/v3/nba/scores/json/ScoresBasic/${tomorrow}?key=${process.env.API_KEY}`,
+      ),
     ]);
 
   const finishedGames = getGames(

@@ -9,7 +9,6 @@ import "swiper/css/effect-fade";
 import LiveTag from "../LiveTag";
 
 function GamesCarousel({ games, state }) {
-  console.log(games);
   return (
     <Swiper
       modules={[Navigation, EffectFade, Autoplay]}

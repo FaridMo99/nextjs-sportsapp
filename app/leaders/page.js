@@ -1,9 +1,10 @@
 import React from "react";
 import getCurrentSeason from "@/lib/getCurrentSeason";
-import StatleadersSection from "../StatleadersSection";
+import StatleadersSection from "./StatleadersSection";
 import SelectYear from "@/components/teams/SelectYear";
 import getStatLeaders from "@/lib/getStatLeaders";
 import { notFound } from "next/navigation";
+import getData from "@/lib/getData";
 
 async function page({ searchParams }) {
   const search = await searchParams;
@@ -12,10 +13,10 @@ async function page({ searchParams }) {
     search.season && Object.keys(search).length > 0
       ? search.season
       : currentSeason;
-  const res = await fetch(
+
+  const allPlayersSeasonStats = await getData(
     `https://api.sportsdata.io/v3/nba/stats/json/PlayerSeasonStats/${season}?key=${process.env.API_KEY}`,
   );
-  const allPlayersSeasonStats = await res.json();
   const statLeaders = getStatLeaders(allPlayersSeasonStats);
 
   const limit = currentSeason - 1;

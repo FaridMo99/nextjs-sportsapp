@@ -4,6 +4,7 @@ import getCurrentSeason from "@/lib/getCurrentSeason";
 import SelectYear from "@/components/teams/SelectYear";
 import ScheduleAccordion from "../../components/schedule/ScheduleAccordion";
 import "server-only";
+import getData from "@/lib/getData";
 
 async function page({ searchParams }) {
   const search = await searchParams;
@@ -12,10 +13,9 @@ async function page({ searchParams }) {
     search.season && Object.keys(search).length > 0
       ? search.season
       : currentSeason;
-  const res = await fetch(
+  const schedule = await getData(
     `https://api.sportsdata.io/v3/nba/scores/json/Games/${season}?key=${process.env.API_KEY}`,
   );
-  const schedule = await res.json();
   const limit = currentSeason - 1;
 
   for (const [key, value] of Object.entries(search)) {

@@ -9,12 +9,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import "server-only";
+import getData from "@/lib/getData";
 
 async function page() {
-  const res = await fetch(
+  const teams = await getData(
     `https://api.sportsdata.io/v3/nba/scores/json/teams?key=${process.env.API_KEY}`,
   );
-  const teams = await res.json();
 
   return (
     <main className="flex-grow p-6  mx-auto">

@@ -16,10 +16,18 @@ const bebas = Bebas_Neue({
 export const metadata = {
   title: "HoopTracker",
   description: "Basketball statistics page",
-  icons: {
-    icon: "/HTlogo.ico",
-    shortcut: "/HTlogo.ico",
-    apple: "/HTlogo.ico",
+  authors: [{ name: "Farid Mohseni" }],
+  openGraph: {
+    title: "HoopTracker",
+    description: "Basketball statistics page",
+    url: process.env.NEXT_PUBLIC_DOMAIN,
+    siteName: "HoopTracker",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HoopTracker",
+    description: "Basketball statistics page",
   },
 };
 

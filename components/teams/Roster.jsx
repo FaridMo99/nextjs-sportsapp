@@ -4,12 +4,12 @@ import PlayerCard from "../PlayerCard";
 import Link from "next/link";
 import SectionWrapper from "../Home/SectionWrapper";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import getData from "@/lib/getData";
 
 async function Roster({ season, id, teamName, abbr }) {
-  const res = await fetch(
+  const roster = await getData(
     `https://api.sportsdata.io/v3/nba/scores/json/Players/${abbr}?key=${process.env.API_KEY}`,
   );
-  const roster = await res.json();
 
   if (!roster || roster.length === 0)
     return (

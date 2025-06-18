@@ -6,6 +6,7 @@ import SecondCard from "./SecondCard";
 import ThirdCard from "./ThirdCard";
 import getCurrentSeason from "@/lib/getCurrentSeason";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import getData from "@/lib/getData";
 
 function getPlayer(players, id) {
   return players.find((player) => player.PlayerID === Number(id));
@@ -16,18 +17,13 @@ export default async function Page({ params }) {
 
   const currentSeason = await getCurrentSeason();
 
-  const [biosRes, allSeasonStatsRes] = await Promise.all([
-    fetch(
+  const [bios, allSeasonStats] = await Promise.all([
+    getData(
       `https://api.sportsdata.io/v3/nba/scores/json/Players?key=${process.env.API_KEY}`,
     ),
-    fetch(
+    getData(
       `https://api.sportsdata.io/v3/nba/stats/json/PlayerSeasonStats/${currentSeason}?key=${process.env.API_KEY}`,
     ),
-  ]);
-
-  const [bios, allSeasonStats] = await Promise.all([
-    biosRes.json(),
-    allSeasonStatsRes.json(),
   ]);
 
   const bio = getPlayer(bios, playerId);
