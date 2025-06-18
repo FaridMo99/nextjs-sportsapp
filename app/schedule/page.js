@@ -6,6 +6,24 @@ import ScheduleAccordion from "../../components/schedule/ScheduleAccordion";
 import "server-only";
 import getData from "@/lib/getData";
 
+export const metadata = {
+  title: "Schedule | HoopTracker",
+  description: "Schedule for all current Teams",
+  authors: [{ name: "Farid Mohseni" }],
+  openGraph: {
+    title: "Schedule | HoopTracker",
+    description: "Schedule for all Season Games",
+    url: `${process.env.NEXT_PUBLIC_DOMAIN}/schedule`,
+    siteName: "HoopTracker",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Schedule | HoopTracker",
+    description: "Schedule for all Season Games",
+  },
+};
+
 async function page({ searchParams }) {
   const search = await searchParams;
   const currentSeason = await getCurrentSeason();

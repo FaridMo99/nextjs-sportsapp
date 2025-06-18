@@ -6,6 +6,24 @@ import Link from "next/link";
 import "server-only";
 import getData from "@/lib/getData";
 
+export const metadata = {
+  title: "Players | HoopTracker",
+  description: "Information about all current Players",
+  authors: [{ name: "Farid Mohseni" }],
+  openGraph: {
+    title: "Players | HoopTracker",
+    description: "Information about all current Players",
+    url: `${process.env.NEXT_PUBLIC_DOMAIN}/players`,
+    siteName: "HoopTracker",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Players | HoopTracker",
+    description: "Information about all current Players",
+  },
+};
+
 function splitPlayersArray(players) {
   const newArr = [];
   const pageSize = 20;

@@ -11,6 +11,24 @@ import {
 import "server-only";
 import getData from "@/lib/getData";
 
+export const metadata = {
+  title: "Teams | HoopTracker",
+  description: "Information about all current Teams",
+  authors: [{ name: "Farid Mohseni" }],
+  openGraph: {
+    title: "Teams | HoopTracker",
+    description: "Information about all current Teams",
+    url: `${process.env.NEXT_PUBLIC_DOMAIN}/teams`,
+    siteName: "HoopTracker",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Teams | HoopTracker",
+    description: "Information about all current Teams",
+  },
+};
+
 async function page() {
   const teams = await getData(
     `https://api.sportsdata.io/v3/nba/scores/json/teams?key=${process.env.API_KEY}`,

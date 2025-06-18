@@ -6,6 +6,24 @@ import getStatLeaders from "@/lib/getStatLeaders";
 import { notFound } from "next/navigation";
 import getData from "@/lib/getData";
 
+export const metadata = {
+  title: "Leaders | HoopTracker",
+  description: "Information about all Season Stat Leaders",
+  authors: [{ name: "Farid Mohseni" }],
+  openGraph: {
+    title: "Leaders | HoopTracker",
+    description: "Information about all Season Stat Leaders",
+    url: `${process.env.NEXT_PUBLIC_DOMAIN}/leaders`,
+    siteName: "HoopTracker",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Leaders | HoopTracker",
+    description: "Information about all Season Stat Leaders",
+  },
+};
+
 async function page({ searchParams }) {
   const search = await searchParams;
   const currentSeason = await getCurrentSeason();

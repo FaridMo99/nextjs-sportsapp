@@ -15,11 +15,11 @@ const bebas = Bebas_Neue({
 
 export const metadata = {
   title: "HoopTracker",
-  description: "Basketball statistics page",
+  description: "Basketball Statistics Page",
   authors: [{ name: "Farid Mohseni" }],
   openGraph: {
     title: "HoopTracker",
-    description: "Basketball statistics page",
+    description: "Basketball Statistics Page",
     url: process.env.NEXT_PUBLIC_DOMAIN,
     siteName: "HoopTracker",
     type: "website",
@@ -27,7 +27,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "HoopTracker",
-    description: "Basketball statistics page",
+    description: "Basketball Statistics Page",
   },
 };
 
