@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 import getData from "@/lib/getData";
 
 export const metadata = {
-  title: "Leaders | HoopTracker",
+  title: "Leaders",
   description: "Information about all Season Stat Leaders",
   authors: [{ name: "Farid Mohseni" }],
   openGraph: {

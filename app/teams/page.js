@@ -12,7 +12,7 @@ import "server-only";
 import getData from "@/lib/getData";
 
 export const metadata = {
-  title: "Teams | HoopTracker",
+  title: "Teams",
   description: "Information about all current Teams",
   authors: [{ name: "Farid Mohseni" }],
   openGraph: {

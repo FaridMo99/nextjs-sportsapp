@@ -6,10 +6,41 @@ import SecondCard from "./SecondCard";
 import ThirdCard from "./ThirdCard";
 import getCurrentSeason from "@/lib/getCurrentSeason";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import getData from "@/lib/getData";
+import getData, { getCachedData } from "@/lib/getData";
 
 function getPlayer(players, id) {
   return players.find((player) => player.PlayerID === Number(id));
+}
+
+export async function generateMetadata({ params }) {
+  const { playerId } = params;
+
+  const bios = await getCachedData(
+    `https://api.sportsdata.io/v3/nba/scores/json/Players?key=${process.env.API_KEY}`,
+  );
+
+  const bio = getPlayer(bios, playerId);
+
+  const playerName = `${bio.FirstName} ${bio.LastName}`;
+  const teamName = bio.Team;
+
+  return {
+    title: playerName,
+    description: `${playerName} of the ${teamName}`,
+    authors: [{ name: "Farid Mohseni" }],
+    openGraph: {
+      title: `${playerName} | HoopTracker`,
+      description: `${playerName} of the ${teamName}`,
+      url: `${process.env.NEXT_PUBLIC_DOMAIN}/players/${playerId}`,
+      siteName: "HoopTracker",
+      type: "profile",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${playerName} | HoopTracker`,
+      description: `${playerName} of the ${teamName}`,
+    },
+  };
 }
 
 export default async function Page({ params }) {
@@ -18,7 +49,7 @@ export default async function Page({ params }) {
   const currentSeason = await getCurrentSeason();
 
   const [bios, allSeasonStats] = await Promise.all([
-    getData(
+    getCachedData(
       `https://api.sportsdata.io/v3/nba/scores/json/Players?key=${process.env.API_KEY}`,
     ),
     getData(

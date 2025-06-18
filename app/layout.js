@@ -14,7 +14,10 @@ const bebas = Bebas_Neue({
 });
 
 export const metadata = {
-  title: "HoopTracker",
+  title: {
+    default: "HoopTracker",
+    template: "%s | Hooptracker",
+  },
   description: "Basketball Statistics Page",
   authors: [{ name: "Farid Mohseni" }],
   openGraph: {

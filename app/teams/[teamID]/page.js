@@ -10,6 +10,30 @@ import transformTeamName, {
 } from "@/lib/transformTeamName";
 import CardLoader from "@/components/CardLoader";
 
+export async function generateMetadata({ params }) {
+  const { teamID } = params;
+
+  const abbr = getTeamAbbreviationById(teamID);
+  const teamName = transformTeamName(abbr);
+
+  return {
+    title: teamName,
+    description: `Season schedule, roster, and stats for ${teamName}.`,
+    authors: [{ name: "Farid Mohseni" }],
+    openGraph: {
+      title: `${teamName} | HoopTracker`,
+      description: `Season schedule, roster, and stats for ${teamName}.`,
+      url: `${process.env.NEXT_PUBLIC_DOMAIN}/teams/${teamID}`,
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${teamName} | HoopTracker`,
+      description: `Season schedule, roster, and stats for ${teamName}.`,
+    },
+  };
+}
+
 async function page({ params, searchParams }) {
   const { teamID } = await params;
   if (Number(teamID) > 30 || Number(teamID) < 1) return notFound();
