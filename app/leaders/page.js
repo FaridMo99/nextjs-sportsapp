@@ -1,19 +1,17 @@
-import SelectYear from "@/components/teams/SelectYear";
 import React from "react";
 import getCurrentSeason from "@/lib/getCurrentSeason";
-import StatleadersSection from "./StatleadersSection";
+import StatleadersSection from "../StatleadersSection";
+import SelectYear from "@/components/teams/SelectYear";
 import getStatLeaders from "@/lib/getStatLeaders";
-import "server-only";
+import { notFound } from "next/navigation";
 
 async function page({ searchParams }) {
   const search = await searchParams;
   const currentSeason = await getCurrentSeason();
-
   const season =
     search.season && Object.keys(search).length > 0
       ? search.season
       : currentSeason;
-
   const res = await fetch(
     `https://api.sportsdata.io/v3/nba/stats/json/PlayerSeasonStats/${season}?key=${process.env.API_KEY}`,
   );
@@ -25,16 +23,23 @@ async function page({ searchParams }) {
   for (const [key, value] of Object.entries(search)) {
     if (
       key !== "season" ||
-      parseInt(value) > currentSeason ||
+      parseInt(value) > parseInt(currentSeason) + 1 ||
       parseInt(value) < limit
     ) {
       return notFound();
     }
   }
 
+  if (!statLeaders || !allPlayersSeasonStats.length) {
+    return (
+      <p className="w-full flex justify-center mt-4 text-white font-bold text-2xl">
+        No Leaders available yet...
+      </p>
+    );
+  }
   return (
     <main className="p-4 flex-grow overflow-auto">
-      <SelectYear currentSeason={currentSeason.toString()} />
+      <SelectYear currentSeason={currentSeason} />
       <StatleadersSection leader={statLeaders.total.points} stat="Points" />
       <StatleadersSection
         leader={statLeaders.perGame.pointsPerGame}

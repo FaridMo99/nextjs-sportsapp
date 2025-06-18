@@ -17,7 +17,9 @@ export const metadata = {
   title: "HoopTracker",
   description: "Basketball statistics page",
   icons: {
-    icon: "/hooptracker-logo.png",
+    icon: "/HTlogo.ico",
+    shortcut: "/HTlogo.ico",
+    apple: "/HTlogo.ico",
   },
 };
 

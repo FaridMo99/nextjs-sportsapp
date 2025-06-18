@@ -59,8 +59,11 @@ function ChatArea() {
   };
 
   return (
-    <PopoverContent className="font-semibold mr-2 border border-bot-orange flex flex-col justify-between">
-      <div ref={scrollArea} className="w-full h-60 overflow-scroll p-2">
+    <PopoverContent className="mr-2 border border-bot-orange flex flex-col justify-between">
+      <div
+        ref={scrollArea}
+        className="w-full h-60 overflow-y-auto overflow-x-hidden p-2"
+      >
         {messages.map((msg, i) => (
           <div
             key={i}
