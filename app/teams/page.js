@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/table";
 import "server-only";
 import getData from "@/lib/getData";
+import getCurrentSeason from "@/lib/getCurrentSeason";
+import NoDataText from "@/components/NoDataText";
 
 export const metadata = {
   title: "Teams",
@@ -34,6 +36,9 @@ async function page() {
     `https://api.sportsdata.io/v3/nba/scores/json/teams?key=${process.env.API_KEY}`,
   );
 
+  if (teams.length === 0) return <NoDataText text="No Teams found..." />;
+  const currentSeason = await getCurrentSeason();
+
   return (
     <main className="flex-grow p-6  mx-auto">
       <h1 className="text-3xl font-bold mb-8 text-white text-center">
@@ -56,7 +61,7 @@ async function page() {
               <TableRow className="hover:bg-transparent" key={team.TeamID}>
                 <TableCell className="px-6 py-4">
                   <Link
-                    href={`/teams/${team.TeamID}`}
+                    href={`/teams/${team.TeamID}/${currentSeason}`}
                     className="hover:underline"
                   >
                     {team.Name}

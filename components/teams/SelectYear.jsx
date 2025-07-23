@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Select,
   SelectContent,
@@ -11,18 +11,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-function SelectYear({ currentSeason }) {
+function SelectYear({ currentSeason, chosenSeason, path, nestedPath = "" }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const selectedSeason = searchParams.get("season") || currentSeason;
-
-  const handleChange = (value) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("season", value);
-    router.replace(`?${params.toString()}`);
-  };
-
   const limit = currentSeason - 1;
 
   const seasons = [];
@@ -30,9 +20,17 @@ function SelectYear({ currentSeason }) {
     seasons.push(String(year));
   }
 
+  function handleChange(newSeason) {
+    if (nestedPath !== "") {
+      router.push(`/${path}/${nestedPath}/${newSeason}`);
+    } else {
+      router.push(`/${path}/${newSeason}`);
+    }
+  }
+
   return (
     <div className="w-full flex items-center justify-end">
-      <Select value={selectedSeason} onValueChange={handleChange}>
+      <Select value={chosenSeason} onValueChange={handleChange}>
         <SelectTrigger className="w-[100px] bg-secondary border-secondary-light font-bold">
           <SelectValue placeholder="Select Season" />
         </SelectTrigger>

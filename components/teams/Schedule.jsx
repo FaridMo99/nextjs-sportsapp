@@ -6,12 +6,15 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import Link from "next/link";
 import "server-only";
 import getData from "@/lib/getData";
+import NoDataText from "../NoDataText";
 
 async function Schedule({ season, id, teamName }) {
   const schedule = await getData(
     `https://api.sportsdata.io/v3/nba/scores/json/Games/${season}?key=${process.env.API_KEY}`,
   );
   const teamSchedule = getScheduleById(schedule, Number(id));
+
+  if (schedule.length === 0) return <NoDataText text="No Players found..." />;
 
   return (
     <SectionWrapper title={"Schedule:"} teamName={teamName}>

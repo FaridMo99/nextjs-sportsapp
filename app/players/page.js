@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import "server-only";
 import getData from "@/lib/getData";
+import NoDataText from "@/components/NoDataText";
 
 export const metadata = {
   title: "Players",
@@ -40,6 +41,8 @@ async function page({ searchParams }) {
   const players = await getData(
     `https://api.sportsdata.io/v3/nba/scores/json/PlayersActiveBasic?key=${process.env.API_KEY}`,
   );
+
+  if (players.length === 0) return <NoDataText text="No Players found..." />;
 
   const params = await searchParams;
 

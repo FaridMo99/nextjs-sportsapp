@@ -33,8 +33,6 @@ export async function message(prevState, formData) {
     const reply = response.choices?.[0]?.message?.content ?? "Sorry, no reply.";
     return { reply };
   } catch (error) {
-    console.error("OpenAI API Error:", error);
-
     return { error: "Failed to get response from AI" };
   }
 }

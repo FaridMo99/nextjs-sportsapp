@@ -6,6 +6,32 @@ import TeamStatsSlider from "./TeamStatsSlider";
 import PlayersStats from "./PlayersStats";
 import StartingLineup from "./StartingLineup";
 import { getCachedData } from "@/lib/getData";
+import { getCurrentSeasonCached } from "@/lib/getCurrentSeason";
+
+export const dynamic = "force-dynamic";
+
+export async function generateStaticParams() {
+  const currentSeason = await getCurrentSeasonCached();
+  const limit = currentSeason - 1;
+  const seasons = [limit, currentSeason];
+  const params = [];
+
+  for (const season of seasons) {
+    const schedule = await getCachedData(
+      `https://api.sportsdata.io/v3/nba/scores/json/Games/${season}?key=${process.env.API_KEY}`,
+    );
+
+    schedule.forEach((game) => {
+      if (["Final", "Postponed", "Canceled", "F/OT"].includes(game.Status)) {
+        params.push({ gameId: String(game.GameID) });
+      }
+    });
+  }
+
+  return params;
+}
+
+const revalidate = 2500000;
 
 export async function generateMetadata({ params }) {
   const { gameId } = params;
@@ -41,6 +67,7 @@ async function page({ params }) {
   const game = await getCachedData(
     `https://api.sportsdata.io/v3/nba/stats/json/BoxScore/${gameId}?key=${process.env.API_KEY}`,
   );
+
   const { Game, PlayerGames, Quarters, TeamGames } = game;
 
   if (Game.Status === "Postponed" || Game.Status === "Canceled")

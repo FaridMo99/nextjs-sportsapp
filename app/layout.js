@@ -18,6 +18,7 @@ export const metadata = {
     default: "HoopTracker",
     template: "%s | Hooptracker",
   },
+  metadataBase: new URL(process.env.NEXT_PUBLIC_DOMAIN),
   description: "Basketball Statistics Page",
   authors: [{ name: "Farid Mohseni" }],
   openGraph: {

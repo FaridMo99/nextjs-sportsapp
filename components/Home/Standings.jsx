@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "../ui/table";
 import Link from "next/link";
+import NoDataText from "../NoDataText";
 
 function sortTeamsToConference(conference, teams) {
   const conferenceArray = teams.filter(
@@ -34,7 +35,8 @@ function Standings({ teams }) {
   const westernConference = sortTeamsToConference("Western", teams);
   const [isWesternConference, setConference] = useState(true);
 
-  if (teams.length === 0) return <p>No Standings found...</p>;
+  if (teams.length === 0) return <NoDataText text="No Standings found..." />;
+
   return (
     <>
       <div className="absolute top-6 font-bold text-secondary-light text-xl right-6 justify-between items-center w-24 h-6 flex">

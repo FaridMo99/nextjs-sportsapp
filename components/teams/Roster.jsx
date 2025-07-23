@@ -5,6 +5,7 @@ import Link from "next/link";
 import SectionWrapper from "../Home/SectionWrapper";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import getData from "@/lib/getData";
+import NoDataText from "../NoDataText";
 
 async function Roster({ season, id, teamName, abbr }) {
   const roster = await getData(
@@ -12,11 +13,7 @@ async function Roster({ season, id, teamName, abbr }) {
   );
 
   if (!roster || roster.length === 0)
-    return (
-      <p className="text-2xl w-full flex justify-center items-center font-bold">
-        No Players found...
-      </p>
-    );
+    return <NoDataText text="No Players found..." />;
 
   return (
     <SectionWrapper title={"Roster:"} teamName={teamName}>

@@ -3,12 +3,12 @@ import React from "react";
 import Link from "next/link";
 import { AlertTriangle } from "lucide-react";
 
-function Error({ reset }) {
+function Error({ error, reset }) {
   return (
     <main className="flex flex-col items-center justify-center flex-grow p-8 text-center">
       <AlertTriangle size={64} className="text-red-500 mb-6 animate-pulse" />
       <h1 className="text-4xl font-bold mb-4 text-white">
-        Oops! Something went wrong.
+        Oops! Something went wrong. {error.message}
       </h1>
       <div className="flex justify-between items-center">
         <button

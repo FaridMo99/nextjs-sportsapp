@@ -7,13 +7,13 @@ export async function GET(request) {
 
     const [players, teams, games] = await Promise.all([
       getData(
-        `https://api.sportsdata.io/v3/nba/scores/json/Players?key=${process.env.API_KEY}`
+        `https://api.sportsdata.io/v3/nba/scores/json/Players?key=${process.env.API_KEY}`,
       ),
       getData(
-        `https://api.sportsdata.io/v3/nba/scores/json/teams?key=${process.env.API_KEY}`
+        `https://api.sportsdata.io/v3/nba/scores/json/teams?key=${process.env.API_KEY}`,
       ),
       getData(
-        `https://api.sportsdata.io/v3/nba/scores/json/Games/${season}?key=${process.env.API_KEY}`
+        `https://api.sportsdata.io/v3/nba/scores/json/Games/${season}?key=${process.env.API_KEY}`,
       ),
     ]);
 
@@ -31,7 +31,7 @@ export async function GET(request) {
       {
         status: 500,
         headers: { "Content-Type": "application/json" },
-      }
+      },
     );
   }
 }
