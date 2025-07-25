@@ -63,3 +63,5 @@ function SelectYear({
 
 export default SelectYear;
 //usually this was meant to go until 1950 but the api free tier doesnt offer that far back
+//the component got commented out since the free tier doesnt offer past seasons, functionality wise
+//the component works

@@ -1,7 +1,7 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import { getCurrentSeasonCached } from "@/lib/getCurrentSeason";
-import SelectYear from "@/components/teams/SelectYear";
+//import SelectYear from "@/components/teams/SelectYear";
 import ScheduleAccordion from "@/components/schedule/ScheduleAccordion";
 import "server-only";
 import getData from "@/lib/getData";
@@ -60,11 +60,11 @@ async function page({ params }: Params<{ season: string }>) {
 
   return (
     <main className="p-4 flex-grow overflow-auto">
-      <SelectYear
+      {/*<SelectYear
         currentSeason={currentSeason}
         chosenSeason={season}
         path="schedule"
-      />
+      />*/}
       <ScheduleAccordion schedule={schedule} />
       <SeasonDisclaimer season={currentSeason} seasonType={message} />
     </main>

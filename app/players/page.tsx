@@ -9,6 +9,9 @@ import NoDataText from "@/components/NoDataText";
 import { Metadata } from "next";
 import { Player } from "../types";
 
+export const dynamic = "force-static";
+export const revalidate = 86400 * 7 * 4; 
+
 export const metadata: Metadata = {
   title: "Players",
   description: "Information about all current Players",

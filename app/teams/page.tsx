@@ -15,6 +15,8 @@ import NoDataText from "@/components/NoDataText";
 import { Metadata } from "next";
 import { Team } from "../types";
 
+export const dynamic = "force-static"
+
 export const metadata: Metadata = {
   title: "Teams",
   description: "Information about all current Teams",

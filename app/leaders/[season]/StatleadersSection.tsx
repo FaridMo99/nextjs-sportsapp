@@ -41,7 +41,7 @@ function StatleadersSection({
 
   return (
     <section className="my-4">
-      <Link href={`players/${leader.PlayerID}`}>
+      <Link href={`/players/${leader.PlayerID}`}>
         <Card
           style={{
             backgroundColor: `var(--${teamName[1]}-main)`,

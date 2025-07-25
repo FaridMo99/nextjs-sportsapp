@@ -88,19 +88,21 @@ export default async function Page({
   const teamName = transformTeamName(bio.Team);
 
   return (
-    <main className="flex-grow md:flex md:justify-evenly rounded-2xl p-4 m-3">
-      <FirstCard bio={bio} teamName={teamName} />
-      <SecondCard seasonStats={seasonStats} teamName={teamName} />
-      <Suspense fallback={<LoadingSpinner />}>
-        <ThirdCard
-          playerId={playerId}
-          currentSeason={currentSeason}
-          seasons={bio.Experience}
-          teamName={teamName}
-        />
-      </Suspense>
+    <div className="flex flex-grow flex-col items-center justify-evenly p-4">
+      <main className="flex-grow w-full md:flex md:justify-evenly rounded-2xl mb-2">
+        <FirstCard bio={bio} teamName={teamName} />
+        <SecondCard seasonStats={seasonStats} teamName={teamName} />
+        <Suspense fallback={<LoadingSpinner />}>
+          <ThirdCard
+            playerId={playerId}
+            currentSeason={currentSeason}
+            seasons={bio.Experience}
+            teamName={teamName}
+          />
+        </Suspense>
+      </main>
       <SeasonDisclaimer seasonType={message} season={currentSeason} />
-    </main>
+    </div>
   );
 }
 

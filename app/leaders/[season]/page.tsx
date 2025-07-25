@@ -1,7 +1,7 @@
 import React from "react";
 import { getCurrentSeasonCached } from "@/lib/getCurrentSeason";
 import StatleadersSection from "./StatleadersSection";
-import SelectYear from "@/components/teams/SelectYear";
+//import SelectYear from "@/components/teams/SelectYear";
 import getStatLeaders from "@/lib/getStatLeaders";
 import { notFound } from "next/navigation";
 import getData from "@/lib/getData";
@@ -64,11 +64,11 @@ async function page({ params }: Params<{ season: string }>) {
 
   return (
     <main className="p-4 flex-grow overflow-auto">
-      <SelectYear
+      {/*<SelectYear
         currentSeason={currentSeason}
         chosenSeason={season}
         path="leaders"
-      />
+      />*/}
 
       {[
         { stat: "Points", leader: statLeaders.total.points },

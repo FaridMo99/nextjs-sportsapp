@@ -3,7 +3,7 @@ import { getCurrentSeasonCached } from "@/lib/getCurrentSeason";
 import Schedule from "@/components/teams/Schedule";
 import Roster from "@/components/teams/Roster";
 import SeasonStatistics from "@/components/teams/SeasonStatistics";
-import SelectYear from "@/components/teams/SelectYear";
+//import SelectYear from "@/components/teams/SelectYear";
 import { notFound } from "next/navigation";
 import transformTeamName, {
   getTeamAbbreviationById,
@@ -80,12 +80,12 @@ async function page({ params }: Params<{ teamID: string; season: string }>) {
 
   return (
     <main className="p-4 flex-grow overflow-auto">
-      <SelectYear
+      {/*<SelectYear
         currentSeason={currentSeason}
         chosenSeason={season}
         path="teams"
         nestedPath={teamID}
-      />
+      />*/}
       <Suspense fallback={<CardLoader amount={3} />}>
         <Schedule season={season} id={teamID} teamName={teamName} />
         <Roster teamName={teamName} abbr={abbr} />
