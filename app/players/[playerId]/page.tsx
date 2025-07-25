@@ -7,7 +7,7 @@ import ThirdCard from "./ThirdCard";
 import getCurrentSeason from "@/lib/getCurrentSeason";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import getData, { getCachedData } from "@/lib/getData";
-import { PlayerInfo, PlayerSeasonStat } from "@/app/types";
+import { PageParamProps, PlayerInfo, PlayerSeasonStat } from "@/app/types";
 import SeasonDisclaimer from "@/components/SeasonDisclaimer";
 
 function getPlayer(
@@ -66,10 +66,8 @@ export async function generateMetadata({
 
 export default async function Page({
   params,
-}: {
-  params: { playerId: string };
-}) {
-  const { playerId } = await params;
+}: PageParamProps) {
+  const { playerId } = params;
 
   const {season:currentSeason,message} = await getCurrentSeason();
 

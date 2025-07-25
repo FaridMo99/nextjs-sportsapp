@@ -1,5 +1,10 @@
 import { TeamAbbreviation } from "@/lib/transformTeamName";
 
+export type PageParamProps = {
+  params: { [key: string]: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+};
+
 //Standings
 export type Standing = {
   Season: number;

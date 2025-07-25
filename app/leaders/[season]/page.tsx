@@ -6,7 +6,7 @@ import getStatLeaders from "@/lib/getStatLeaders";
 import { notFound } from "next/navigation";
 import getData from "@/lib/getData";
 import NoDataText from "@/components/NoDataText";
-import { PlayerSeasonStat } from "@/app/types";
+import { PageParamProps, PlayerSeasonStat } from "@/app/types";
 import SeasonDisclaimer from "@/components/SeasonDisclaimer";
 
 export async function generateStaticParams() {
@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: { params: { season: string } 
   };
 }
 
-async function page({ params }: { params: { season: string } }) {
+async function page({ params }:PageParamProps) {
   const { season } = params;
   const seasonAsNumber = Number(season);
   const { season: currentSeason, message } = await getCurrentSeasonCached();

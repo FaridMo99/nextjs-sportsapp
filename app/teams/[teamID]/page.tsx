@@ -1,3 +1,4 @@
+import { PageParamProps } from "@/app/types";
 import getCurrentSeason from "@/lib/getCurrentSeason";
 import { notFound, redirect } from "next/navigation";
 
@@ -8,7 +9,7 @@ export async function generateStaticParams(): Promise<{ teamID: string }[]> {
   return teamIDs;
 }
 
-async function page({ params }: { params: { teamID: string; }}) {
+async function page({ params }:PageParamProps) {
   const { teamID } = params;
   const {season} = await getCurrentSeason();
 

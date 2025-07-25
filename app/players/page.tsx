@@ -10,7 +10,7 @@ import { Metadata } from "next";
 import { Player } from "../types";
 
 export const dynamic = "force-static";
-export const revalidate = 86400 * 7 * 4; 
+export const revalidate = 2419200; 
 
 export const metadata: Metadata = {
   title: "Players",
@@ -53,7 +53,7 @@ async function page({
 
   if (players.length === 0) return <NoDataText text="No Players found..." />;
 
-  const params = await searchParams;
+  const params = searchParams;
 
   const page = parseInt(params.page) || 1;
 

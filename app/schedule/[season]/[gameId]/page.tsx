@@ -7,7 +7,7 @@ import PlayersStats from "./PlayersStats";
 import StartingLineup from "./StartingLineup";
 import { getCachedData } from "@/lib/getData";
 import { getCurrentSeasonCached } from "@/lib/getCurrentSeason";
-import { FullBoxScore, Game } from "@/app/types";
+import { FullBoxScore, Game, PageParamProps } from "@/app/types";
 
 export const dynamic = "force-dynamic";
 
@@ -34,7 +34,7 @@ export async function generateStaticParams() {
 
 export const revalidate = 2500000;
 
-export async function generateMetadata({ params }: { params: { gameId: string } }) {
+export async function generateMetadata({ params }:PageParamProps) {
   const { gameId } = params;
 
   const game = await getCachedData<FullBoxScore>(
@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: { params: { gameId: string } 
   };
 }
 
-async function page({ params }: { params: { gameId: string } }) {
+async function page({ params }:PageParamProps) {
   const { gameId } = params;
 
   const game = await getCachedData<FullBoxScore>(
