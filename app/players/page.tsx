@@ -45,17 +45,17 @@ function splitPlayersArray(players: Player[]): Player[][] {
 async function page({
   searchParams,
 }: {
-  searchParams: { [index: string]: string };
+  searchParams: { page?: string | string[]};
 }) {
   const players = await getData<Player[]>(
-    `https://api.sportsdata.io/v3/nba/scores/json/PlayersActiveBasic?key=${process.env.API_KEY}`,
+    `https://api.sportsdata.io/v3/nba/scores/json/PlayersActiveBasic?key=${process.env.API_KEY}`
   );
 
   if (players.length === 0) return <NoDataText text="No Players found..." />;
 
-  const params = searchParams;
-
-  const page = parseInt(params.page) || 1;
+  const rawPage = searchParams.page;
+  const pageString = Array.isArray(rawPage) ? rawPage[0] : rawPage;
+  const page = parseInt(pageString ?? "1");
 
   const playersPagination: Player[][] = splitPlayersArray(players);
 

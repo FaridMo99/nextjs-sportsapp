@@ -7,7 +7,7 @@ import ThirdCard from "./ThirdCard";
 import getCurrentSeason from "@/lib/getCurrentSeason";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import getData, { getCachedData } from "@/lib/getData";
-import { PageParamProps, PlayerInfo, PlayerSeasonStat } from "@/app/types";
+import {  PlayerInfo, PlayerSeasonStat } from "@/app/types";
 import SeasonDisclaimer from "@/components/SeasonDisclaimer";
 
 function getPlayer(
@@ -32,12 +32,12 @@ export const revalidate = 43200;
 export async function generateMetadata({
   params,
 }: {
-  params: { playerId: string };
+  params: Promise<{ playerId: string }>;
 }) {
   const { playerId } = await params;
 
   const bios = await getCachedData<PlayerInfo[]>(
-    `https://api.sportsdata.io/v3/nba/scores/json/Players?key=${process.env.API_KEY}`,
+    `https://api.sportsdata.io/v3/nba/scores/json/Players?key=${process.env.API_KEY}`
   );
 
   const bio = getPlayer(bios, playerId) as PlayerInfo;
@@ -64,19 +64,17 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({
-  params,
-}: PageParamProps) {
-  const { playerId } = params;
+export default async function Page({ params }: { params: Promise<{ playerId: string }> }) {
+  const { playerId } = await params;
 
-  const {season:currentSeason,message} = await getCurrentSeason();
+  const { season: currentSeason, message } = await getCurrentSeason();
 
   const [bios, allSeasonStats] = await Promise.all([
     getCachedData<PlayerInfo[]>(
-      `https://api.sportsdata.io/v3/nba/scores/json/Players?key=${process.env.API_KEY}`,
+      `https://api.sportsdata.io/v3/nba/scores/json/Players?key=${process.env.API_KEY}`
     ),
     getData<PlayerSeasonStat[]>(
-      `https://api.sportsdata.io/v3/nba/stats/json/PlayerSeasonStats/${currentSeason}?key=${process.env.API_KEY}`,
+      `https://api.sportsdata.io/v3/nba/stats/json/PlayerSeasonStats/${currentSeason}?key=${process.env.API_KEY}`
     ),
   ]);
 

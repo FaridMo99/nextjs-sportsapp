@@ -6,7 +6,7 @@ import ScheduleAccordion from "@/components/schedule/ScheduleAccordion";
 import "server-only";
 import getData from "@/lib/getData";
 import NoDataText from "@/components/NoDataText";
-import { Game, PageParamProps } from "@/app/types";
+import { Game } from "@/app/types";
 import SeasonDisclaimer from "@/components/SeasonDisclaimer";
 
 export async function generateStaticParams() {
@@ -18,7 +18,9 @@ export async function generateStaticParams() {
 
 export const revalidate = 43200;
 
-export async function generateMetadata({ params }:PageParamProps) {
+export async function generateMetadata({ params }: {
+  params: Promise<{ season: string }>
+}) {
   const { season } = await params;
   return {
     title: "Schedule",
@@ -39,10 +41,10 @@ export async function generateMetadata({ params }:PageParamProps) {
   };
 }
 
-async function page({ params }:PageParamProps) {
-  const { season } =  params;
+async function page({ params }: { params: Promise<{ season: string }> }) {
+  const { season } = await params;
   const seasonAsNumber = Number(season);
-  const {season:currentSeason, message} = await getCurrentSeasonCached();
+  const { season: currentSeason, message } = await getCurrentSeasonCached();
   const limit: number = currentSeason - 1;
 
   if (
@@ -53,7 +55,7 @@ async function page({ params }:PageParamProps) {
     return notFound();
 
   const schedule = await getData<Game[]>(
-    `https://api.sportsdata.io/v3/nba/scores/json/Games/${season}?key=${process.env.API_KEY}`,
+    `https://api.sportsdata.io/v3/nba/scores/json/Games/${season}?key=${process.env.API_KEY}`
   );
 
   if (schedule.length === 0) return <NoDataText text="No Games found..." />;

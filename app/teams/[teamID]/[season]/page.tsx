@@ -12,7 +12,6 @@ import transformTeamName, {
 } from "@/lib/transformTeamName";
 import CardLoader from "@/components/CardLoader";
 import SeasonDisclaimer from "@/components/SeasonDisclaimer";
-import { PageParamProps } from "@/app/types";
 
 export async function generateStaticParams(): Promise<
   {
@@ -33,8 +32,12 @@ export async function generateStaticParams(): Promise<
 
 export const revalidate = 43200;
 
-export async function generateMetadata({ params }:PageParamProps) {
-  const { teamID, season } = params;
+export async function generateMetadata({
+  params,
+}: {
+    params: Promise<{ season: string; teamID: string; }>;
+}) {
+  const { teamID, season } = await params;
 
   const abbr = getTeamAbbreviationById(teamID);
   const teamName = transformTeamName(abbr);
@@ -57,12 +60,12 @@ export async function generateMetadata({ params }:PageParamProps) {
   };
 }
 
-async function page({ params }:PageParamProps) {
-  const { teamID, season } = params;
+async function page({ params }: { params: Promise<{ season: string; teamID: string; }> }) {
+  const { teamID, season } = await params;
 
   if (Number(teamID) > 30 || Number(teamID) < 1) return notFound();
 
-  const {season : currentSeason, message} = await getCurrentSeasonCached();
+  const { season: currentSeason, message } = await getCurrentSeasonCached();
   const limit: number = currentSeason - 1;
   const seasonAsNumber = Number(season);
 
