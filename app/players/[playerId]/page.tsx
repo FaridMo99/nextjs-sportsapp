@@ -18,18 +18,6 @@ function getPlayer(
   return players.find((player) => player.PlayerID === Number(id))!;
 }
 
-export async function generateStaticParams() {
-  const players = await getCachedData<PlayerInfo[]>(
-    `https://api.sportsdata.io/v3/nba/scores/json/Players?key=${process.env.API_KEY}`,
-  );
-
-  return players.map((player) => ({
-    playerId: player.PlayerID.toString(),
-  }));
-}
-
-export const revalidate = 43200;
-
 export async function generateMetadata({
   params,
 }: {

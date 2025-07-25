@@ -6,33 +6,7 @@ import TeamStatsSlider from "./TeamStatsSlider";
 import PlayersStats from "./PlayersStats";
 import StartingLineup from "./StartingLineup";
 import { getCachedData } from "@/lib/getData";
-import { getCurrentSeasonCached } from "@/lib/getCurrentSeason";
-import { FullBoxScore, Game } from "@/app/types";
-
-export const dynamic = "force-dynamic";
-
-export async function generateStaticParams() {
-  const {season:currentSeason} = await getCurrentSeasonCached();
-  //const limit = currentSeason - 1;
-  const seasons: [number/*, number*/] = [/*limit,*/ currentSeason];
-  const params: unknown[] = [];
-
-  for (const season of seasons) {
-    const schedule = await getCachedData<Game[]>(
-      `https://api.sportsdata.io/v3/nba/scores/json/Games/${season}?key=${process.env.API_KEY}`,
-    );
-
-    schedule.forEach((game) => {
-      if (["Final", "Postponed", "Canceled", "F/OT"].includes(game.Status)) {
-        params.push({ gameId: String(game.GameID) });
-      }
-    });
-  }
-
-  return params;
-}
-
-export const revalidate = 2500000;
+import { FullBoxScore } from "@/app/types";
 
 export async function generateMetadata({
   params,
