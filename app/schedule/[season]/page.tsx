@@ -6,7 +6,7 @@ import ScheduleAccordion from "@/components/schedule/ScheduleAccordion";
 import "server-only";
 import getData from "@/lib/getData";
 import NoDataText from "@/components/NoDataText";
-import { Game, Params } from "@/app/types";
+import { Game } from "@/app/types";
 import SeasonDisclaimer from "@/components/SeasonDisclaimer";
 
 export async function generateStaticParams() {
@@ -18,7 +18,7 @@ export async function generateStaticParams() {
 
 export const revalidate = 43200;
 
-export async function generateMetadata({ params }: Params<{ season: string }>) {
+export async function generateMetadata({ params }: { params: { season: string }}) {
   const { season } = await params;
   return {
     title: "Schedule",
@@ -39,8 +39,8 @@ export async function generateMetadata({ params }: Params<{ season: string }>) {
   };
 }
 
-async function page({ params }: Params<{ season: string }>) {
-  const { season } = await params;
+async function page({ params }: { params: { season: string }}) {
+  const { season } =  params;
   const seasonAsNumber = Number(season);
   const {season:currentSeason, message} = await getCurrentSeasonCached();
   const limit: number = currentSeason - 1;

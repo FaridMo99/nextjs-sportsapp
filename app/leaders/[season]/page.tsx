@@ -6,7 +6,7 @@ import getStatLeaders from "@/lib/getStatLeaders";
 import { notFound } from "next/navigation";
 import getData from "@/lib/getData";
 import NoDataText from "@/components/NoDataText";
-import { Params, PlayerSeasonStat } from "@/app/types";
+import { PlayerSeasonStat } from "@/app/types";
 import SeasonDisclaimer from "@/components/SeasonDisclaimer";
 
 export async function generateStaticParams() {
@@ -18,8 +18,8 @@ export async function generateStaticParams() {
 
 export const revalidate = 43200;
 
-export async function generateMetadata({ params }: Params<{ season: string }>) {
-  const { season } = await params;
+export async function generateMetadata({ params }: { params: { season: string } }) {
+  const { season } =  params;
   return {
     title: `${season} Leaders`,
     description: `Information about all ${season} Season Stat Leaders`,
@@ -39,10 +39,10 @@ export async function generateMetadata({ params }: Params<{ season: string }>) {
   };
 }
 
-async function page({ params }: Params<{ season: string }>) {
-  const { season } = await params;
+async function page({ params }: { params: { season: string } }) {
+  const { season } = params;
   const seasonAsNumber = Number(season);
-  const {season:currentSeason, message} = await getCurrentSeasonCached();
+  const { season: currentSeason, message } = await getCurrentSeasonCached();
   const limit = currentSeason - 1;
 
   if (
@@ -53,7 +53,7 @@ async function page({ params }: Params<{ season: string }>) {
     return notFound();
 
   const allPlayersSeasonStats = await getData<PlayerSeasonStat[]>(
-    `https://api.sportsdata.io/v3/nba/stats/json/PlayerSeasonStats/${season}?key=${process.env.API_KEY}`,
+    `https://api.sportsdata.io/v3/nba/stats/json/PlayerSeasonStats/${season}?key=${process.env.API_KEY}`
   );
 
   if (!allPlayersSeasonStats || allPlayersSeasonStats.length === 0) {

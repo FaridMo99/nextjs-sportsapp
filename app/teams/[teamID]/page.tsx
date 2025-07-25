@@ -1,5 +1,4 @@
 import getCurrentSeason from "@/lib/getCurrentSeason";
-import { Params } from "@/app/types";
 import { notFound, redirect } from "next/navigation";
 
 export async function generateStaticParams(): Promise<{ teamID: string }[]> {
@@ -9,7 +8,7 @@ export async function generateStaticParams(): Promise<{ teamID: string }[]> {
   return teamIDs;
 }
 
-async function page({ params }: Params<{ teamID: string }>) {
+async function page({ params }: { params: { teamID: string; }}) {
   const { teamID } = params;
   const {season} = await getCurrentSeason();
 

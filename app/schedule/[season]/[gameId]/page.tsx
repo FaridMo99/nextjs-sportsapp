@@ -7,7 +7,7 @@ import PlayersStats from "./PlayersStats";
 import StartingLineup from "./StartingLineup";
 import { getCachedData } from "@/lib/getData";
 import { getCurrentSeasonCached } from "@/lib/getCurrentSeason";
-import { FullBoxScore, Game, Params } from "@/app/types";
+import { FullBoxScore, Game } from "@/app/types";
 
 export const dynamic = "force-dynamic";
 
@@ -34,7 +34,7 @@ export async function generateStaticParams() {
 
 export const revalidate = 2500000;
 
-export async function generateMetadata({ params }: Params<{ gameId: string }>) {
+export async function generateMetadata({ params }: { params: { gameId: string } }) {
   const { gameId } = params;
 
   const game = await getCachedData<FullBoxScore>(
@@ -62,8 +62,8 @@ export async function generateMetadata({ params }: Params<{ gameId: string }>) {
   };
 }
 
-async function page({ params }: Params<{ gameId: string }>) {
-  const { gameId } = await params;
+async function page({ params }: { params: { gameId: string } }) {
+  const { gameId } = params;
 
   const game = await getCachedData<FullBoxScore>(
     `https://api.sportsdata.io/v3/nba/stats/json/BoxScore/${gameId}?key=${process.env.API_KEY}`,

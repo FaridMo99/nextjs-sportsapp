@@ -1,9 +1,5 @@
 import { TeamAbbreviation } from "@/lib/transformTeamName";
 
-export type Params<T extends Record<string, string>> = {
-  params: T;
-};
-
 //Standings
 export type Standing = {
   Season: number;
