@@ -45,7 +45,7 @@ async function page({ params }: { params: Promise<{ season: string }> }) {
   const { season } = await params;
   const seasonAsNumber = Number(season);
   const { season: currentSeason, message } = await getCurrentSeasonCached();
-  const limit: number = currentSeason - 1;
+  //const limit: number = currentSeason - 1;
 
   if (
     seasonAsNumber > currentSeason ||
