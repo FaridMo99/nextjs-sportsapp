@@ -33,7 +33,10 @@ function sortTeamsToConference(conference: Conference, teams: Standing[]) {
   }));
 }
 
-function Standings({ teams }: { teams: Standing[] }) {
+
+
+
+function Standings({ teams}:{teams:Standing[]} ) {
   const easternConference = sortTeamsToConference("Eastern", teams);
   const westernConference = sortTeamsToConference("Western", teams);
   const [isWesternConference, setConference] = useState(true);

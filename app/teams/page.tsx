@@ -39,7 +39,7 @@ async function page() {
   );
 
   if (teams.length === 0) return <NoDataText text="No Teams found..." />;
-  const currentSeason = await getCurrentSeason();
+  const {season} = await getCurrentSeason();
 
   return (
     <main className="flex-grow p-6  mx-auto">
@@ -63,7 +63,7 @@ async function page() {
               <TableRow className="hover:bg-transparent" key={team.TeamID}>
                 <TableCell className="px-6 py-4">
                   <Link
-                    href={`/teams/${team.TeamID}/${currentSeason}`}
+                    href={`/teams/${team.TeamID}/${season}`}
                     className="hover:underline"
                   >
                     {team.Name}

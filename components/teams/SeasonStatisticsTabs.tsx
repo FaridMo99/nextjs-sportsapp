@@ -82,7 +82,10 @@ function SeasonStatisticsTabs({ statistics, gameLogs }: SeasonStatisticsProps) {
               const didWin = log.Wins === 1;
 
               return (
-                <Link key={index} href={`/schedule/${log.GameID}`}>
+                <Link
+                  key={index}
+                  href={`/schedule/${log.Season}/${log.GameID}`}
+                >
                   <Card
                     className="relative"
                     style={{

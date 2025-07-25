@@ -19,14 +19,13 @@ type PerGameStatKeys =
   | "blocksPerGame"
   | "threesPerGame";
 
-
 type StatLeaders = {
   total: Record<TotalStatKeys, ExtendedPlayerSeasonStat>;
   perGame: Record<PerGameStatKeys, ExtendedPlayerSeasonStat>;
 };
 
 export default function getStatLeaders(
-  players: PlayerSeasonStat[]
+  players: PlayerSeasonStat[],
 ): StatLeaders {
   const totalStats: Record<TotalStatKeys, keyof PlayerSeasonStat> = {
     points: "Points",
@@ -73,7 +72,7 @@ export default function getStatLeaders(
     keyof PlayerSeasonStat,
   ][]) {
     leaders.total[key] = playersWithPerGame.reduce((top, current) =>
-      current[statKey]! > top[statKey]! ? current : top
+      current[statKey]! > top[statKey]! ? current : top,
     );
   }
 
@@ -82,7 +81,7 @@ export default function getStatLeaders(
     keyof ExtendedPlayerSeasonStat,
   ][]) {
     leaders.perGame[key] = playersWithPerGame.reduce((top, current) =>
-      current[statKey]! > top[statKey]! ? current : top
+      current[statKey]! > top[statKey]! ? current : top,
     );
   }
 

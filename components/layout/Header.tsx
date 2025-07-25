@@ -3,6 +3,16 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Search from "./Search";
 import Link from "next/link";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      gcTime: Infinity,
+      staleTime: Infinity,
+    },
+  },
+});
 
 type HeaderProps = {
   limit: number;
@@ -28,22 +38,24 @@ function Header({ limit, scrollColor }: HeaderProps) {
   }, [limit]);
 
   return (
-    <header
-      className={`w-full h-[10vh] sticky top-0 left-0 flex items-center justify-center transition-colors duration-300 z-100 ${
-        scrolled ? scrollColor : ""
-      }`}
-    >
-      <Link href="/" className="absolute -left-3 top-0 h-full w-40">
-        <Image
-          priority
-          src="/hooptracker-logo.png"
-          alt="hooptracker logo"
-          fill={true}
-          sizes="100px"
-        />
-      </Link>
-      <Search />
-    </header>
+    <QueryClientProvider client={queryClient}>
+      <header
+        className={`w-full h-[10vh] sticky top-0 left-0 flex items-center justify-center transition-colors duration-300 z-100 ${
+          scrolled ? scrollColor : ""
+        }`}
+      >
+        <Link href="/" className="absolute -left-3 top-0 h-full w-40">
+          <Image
+            priority
+            src="/hooptracker-logo.png"
+            alt="hooptracker logo"
+            fill={true}
+            sizes="100px"
+          />
+        </Link>
+        <Search scrolled={scrolled} />
+      </header>
+    </QueryClientProvider>
   );
 }
 

@@ -3,8 +3,8 @@ import { format, parseISO, startOfWeek, endOfWeek } from "date-fns";
 
 export type Calendar = Record<string, Record<string, Record<string, Game[]>>>;
 
-export default function formatSchedule(schedule: Game[]):Calendar {
-  const calendar:Calendar = {};
+export default function formatSchedule(schedule: Game[]): Calendar {
+  const calendar: Calendar = {};
 
   schedule.forEach((game) => {
     const date = parseISO(game.DateTimeUTC);

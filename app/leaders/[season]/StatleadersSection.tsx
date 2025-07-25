@@ -5,10 +5,9 @@ import transformTeamName from "@/lib/transformTeamName";
 import Link from "next/link";
 import { ExtendedPlayerSeasonStat } from "@/app/types";
 
-
 type Stat = { statKey: string; mappings: keyof ExtendedPlayerSeasonStat };
 
-const stats:Stat[] = [
+const stats: Stat[] = [
   { statKey: "Points", mappings: "Points" },
   { statKey: "Points Per Game", mappings: "pointsPerGame" },
   { statKey: "Assists", mappings: "Assists" },

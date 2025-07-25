@@ -45,7 +45,7 @@ async function Schedule({ season, id, teamName }: Omit<SeasonProps, "abbr">) {
                 }`}
               >
                 <p className="text-xs font-semibold">
-                  <Link href={`/schedule/${game.GameID}`}>
+                  <Link href={`/schedule/${game.Season}/${game.GameID}`}>
                     {new Date(game.DateTime).toLocaleDateString()}
                   </Link>
                 </p>
@@ -59,7 +59,7 @@ async function Schedule({ season, id, teamName }: Omit<SeasonProps, "abbr">) {
                 )}
 
                 <p className="text-sm font-bold">
-                  <Link href={`/schedule/${game.GameID}`}>
+                  <Link href={`/schedule/${game.Season}/${game.GameID}`}>
                     {game.AwayTeam} @ {game.HomeTeam}
                   </Link>
                 </p>
@@ -73,7 +73,9 @@ async function Schedule({ season, id, teamName }: Omit<SeasonProps, "abbr">) {
 
                 {isScheduled && (
                   <p className="text-xs text-gray-500">
-                    <Link href={`/schedule/${game.GameID}`}>Scheduled</Link>
+                    <Link href={`/schedule/${game.Season}/${game.GameID}`}>
+                      Scheduled
+                    </Link>
                   </p>
                 )}
               </div>

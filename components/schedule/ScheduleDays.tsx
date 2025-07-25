@@ -4,10 +4,10 @@ import Link from "next/link";
 import { Game } from "@/app/types";
 
 export type DaysDataProps = {
-  daysData: Record<string, Game[]>
-}
+  daysData: Record<string, Game[]>;
+};
 
-function ScheduleDays({ daysData }:DaysDataProps) {
+function ScheduleDays({ daysData }: DaysDataProps) {
   const dayKeys = Object.keys(daysData).sort();
 
   return (
@@ -26,7 +26,7 @@ function ScheduleDays({ daysData }:DaysDataProps) {
                 {daysData[day].map((game) => (
                   <li key={game.GameID} className="mb-2">
                     <Link
-                      href={`/schedule/${game.GameID}`}
+                      href={`/schedule/${game.Season}/${game.GameID}`}
                       className="hover:underline w-full"
                     >
                       {game.AwayTeam} @ {game.HomeTeam} -{" "}

@@ -5,7 +5,7 @@ import { Game, Player, Team } from "./types";
 export default async function sitemap() {
   const domain = process.env.NEXT_PUBLIC_DOMAIN;
 
-  const season = await getCurrentSeason();
+  const {season} = await getCurrentSeason();
 
   const [teams, players, games] = await Promise.all([
     getData<Team[]>(
@@ -26,41 +26,41 @@ export default async function sitemap() {
       priority: 1,
     },
     {
-      url: `${domain}/players`,
+      url: `/${domain}/players`,
       lastModified: new Date(),
       priority: 0.8,
     },
     {
-      url: `${domain}/teams`,
+      url: `/${domain}/teams`,
       lastModified: new Date(),
       priority: 0.8,
     },
     {
-      url: `${domain}/schedule`,
+      url: `/${domain}/schedule`,
       lastModified: new Date(),
       priority: 0.9,
     },
     {
-      url: `${domain}/statleader`,
+      url: `/${domain}/statleader`,
       lastModified: new Date(),
       priority: 0.7,
     },
   ];
 
   const playerRoutes = players.map((player) => ({
-    url: `${domain}/players/${player.PlayerID}`,
+    url: `/${domain}/players/${player.PlayerID}`,
     lastModified: new Date(),
     priority: 0.7,
   }));
 
   const teamRoutes = teams.map((team) => ({
-    url: `${domain}/teams/${team.TeamID}`,
+    url: `/${domain}/teams/${team.TeamID}`,
     lastModified: new Date(),
     priority: 0.7,
   }));
 
   const gameRoutes = games.map((game) => ({
-    url: `${domain}/schedule/${game.GameID}`,
+    url: `/${domain}/schedule/${game.GameID}`,
     lastModified: new Date(),
     priority: 0.6,
   }));

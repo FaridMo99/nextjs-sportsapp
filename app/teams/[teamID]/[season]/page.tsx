@@ -12,6 +12,7 @@ import transformTeamName, {
 } from "@/lib/transformTeamName";
 import CardLoader from "@/components/CardLoader";
 import { Params } from "@/app/types";
+import SeasonDisclaimer from "@/components/SeasonDisclaimer";
 
 export async function generateStaticParams(): Promise<
   {
@@ -19,7 +20,7 @@ export async function generateStaticParams(): Promise<
     season: string;
   }[]
 > {
-  const currentSeason = await getCurrentSeasonCached();
+  const {season:currentSeason} = await getCurrentSeasonCached();
   const limit = currentSeason - 1;
   const params = [];
   for (let teamID = 1; teamID <= 30; teamID++) {
@@ -35,7 +36,7 @@ export const revalidate = 43200;
 export async function generateMetadata({
   params,
 }: Params<{ teamID: string; season: string }>) {
-  const { teamID, season } = params;
+  const { teamID, season } = await params;
 
   const abbr = getTeamAbbreviationById(teamID);
   const teamName = transformTeamName(abbr);
@@ -63,7 +64,7 @@ async function page({ params }: Params<{ teamID: string; season: string }>) {
 
   if (Number(teamID) > 30 || Number(teamID) < 1) return notFound();
 
-  const currentSeason: number = await getCurrentSeasonCached();
+  const {season : currentSeason, message} = await getCurrentSeasonCached();
   const limit: number = currentSeason - 1;
   const seasonAsNumber = Number(season);
 
@@ -90,6 +91,7 @@ async function page({ params }: Params<{ teamID: string; season: string }>) {
         <Roster teamName={teamName} abbr={abbr} />
         <SeasonStatistics season={season} id={teamID} />
       </Suspense>
+      <SeasonDisclaimer seasonType={message} season={currentSeason} />
     </main>
   );
 }

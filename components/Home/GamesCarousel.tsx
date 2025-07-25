@@ -37,7 +37,10 @@ function GamesCarousel({ games, state }: GamesCarouselProps) {
           className="p-6 bg-secondary border-1 border-secondary-light text-secondary-dark rounded-sm"
         >
           <p className="text-lg">
-            <Link className="hover:underline" href={`/schedule/${game.GameID}`}>
+            <Link
+              className="hover:underline"
+              href={`/schedule/${game.Season}/${game.GameID}`}
+            >
               {game.AwayTeam} @ {game.HomeTeam}
             </Link>
           </p>

@@ -12,7 +12,7 @@ import { FullBoxScore, Game, Params } from "@/app/types";
 export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
-  const currentSeason = await getCurrentSeasonCached();
+  const {season:currentSeason} = await getCurrentSeasonCached();
   const limit = currentSeason - 1;
   const seasons: [number, number] = [limit, currentSeason];
   const params: unknown[] = [];

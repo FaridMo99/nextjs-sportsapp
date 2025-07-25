@@ -11,11 +11,11 @@ export async function generateStaticParams(): Promise<{ teamID: string }[]> {
 
 async function page({ params }: Params<{ teamID: string }>) {
   const { teamID } = params;
-  const currentSeason: number = await getCurrentSeason();
+  const {season} = await getCurrentSeason();
 
   if (Number(teamID) > 30 || Number(teamID) < 1) return notFound();
 
-  return redirect(`teams/${teamID}/${currentSeason}`);
+  return redirect(`/teams/${teamID}/${season}`);
 }
 
 export default page;

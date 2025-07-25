@@ -8,6 +8,7 @@ import getCurrentSeason from "@/lib/getCurrentSeason";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import getData, { getCachedData } from "@/lib/getData";
 import { PlayerInfo, PlayerSeasonStat } from "@/app/types";
+import SeasonDisclaimer from "@/components/SeasonDisclaimer";
 
 function getPlayer(
   players: PlayerInfo[] | PlayerSeasonStat[],
@@ -33,7 +34,7 @@ export async function generateMetadata({
 }: {
   params: { playerId: string };
 }) {
-  const { playerId } = params;
+  const { playerId } = await params;
 
   const bios = await getCachedData<PlayerInfo[]>(
     `https://api.sportsdata.io/v3/nba/scores/json/Players?key=${process.env.API_KEY}`,
@@ -70,7 +71,7 @@ export default async function Page({
 }) {
   const { playerId } = await params;
 
-  const currentSeason: number = await getCurrentSeason();
+  const {season:currentSeason,message} = await getCurrentSeason();
 
   const [bios, allSeasonStats] = await Promise.all([
     getCachedData<PlayerInfo[]>(
@@ -98,6 +99,7 @@ export default async function Page({
           teamName={teamName}
         />
       </Suspense>
+      <SeasonDisclaimer seasonType={message} season={currentSeason} />
     </main>
   );
 }

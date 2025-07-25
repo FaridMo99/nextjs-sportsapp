@@ -11,9 +11,14 @@ type SeasonType = {
   ApiSeason: string;
 };
 
-export default async function getCurrentSeason(): Promise<
-  SeasonType["Season"]
-> {
+export type SeasonMessage = "last" | "current";
+
+type SeasonResponse = {
+  season: number;
+  message:SeasonMessage;
+};
+
+export default async function getCurrentSeason(): Promise<SeasonResponse> {
   const res: Response = await fetch(
     `https://api.sportsdata.io/v3/nba/scores/json/CurrentSeason?key=${process.env.API_KEY}`,
   );
@@ -29,15 +34,30 @@ export default async function getCurrentSeason(): Promise<
   }
 
   const season: SeasonType = await res.json();
-  return season.Season;
+
+  const testFetch = await fetch(
+    `https://api.sportsdata.io/v3/nba/stats/json/PlayerSeasonStats/${season.Season}?key=${process.env.API_KEY}`,
+  );
+  const testData = await testFetch.json();
+
+  if (testData.length === 0) {
+    return {
+      season: season.Season - 1,
+      message: "last",
+    };
+  }
+
+  return {
+    season: season.Season,
+    message: "current",
+  };
 }
 
 export const getCurrentSeasonCached = cache(
-  async function getCurrentSeasonCached(): Promise<SeasonType["Season"]> {
+  async function getCurrentSeasonCached(): Promise<SeasonResponse> {
     const res: Response = await fetch(
       `https://api.sportsdata.io/v3/nba/scores/json/CurrentSeason?key=${process.env.API_KEY}`,
     );
-
     if (!res.ok) {
       if (
         res.status === 403 &&
@@ -52,6 +72,25 @@ export const getCurrentSeasonCached = cache(
     }
 
     const season: SeasonType = await res.json();
-    return season.Season;
+
+    const testFetch = await fetch(
+      `https://api.sportsdata.io/v3/nba/stats/json/PlayerSeasonStats/${season.Season}?key=${process.env.API_KEY}`,
+    );
+    const testData = await testFetch.json();
+
+    if (testData.length === 0) {
+      return {
+        season: season.Season - 1,
+        message: "last",
+      };
+    }
+
+    return {
+      season: season.Season,
+      message: "current",
+    };
   },
 );
+//here i have to make a test fetch and look if it returns a empty array for current
+//season since there could be the issue that currentseason is updated but there is no
+//data yet in the other api routes for the current season

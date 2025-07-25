@@ -5,8 +5,8 @@ import { Game } from "@/app/types";
 
 type WeeksDataProps = {
   weeksData: Record<string, Record<string, Game[]>>;
-}
-function ScheduleWeeks({ weeksData }:WeeksDataProps) {
+};
+function ScheduleWeeks({ weeksData }: WeeksDataProps) {
   const weekKeys = Object.keys(weeksData);
 
   return (
