@@ -20,12 +20,13 @@ export async function generateStaticParams(): Promise<
   }[]
 > {
   const {season:currentSeason} = await getCurrentSeasonCached();
-  const limit = currentSeason - 1;
+  //const limit = currentSeason - 1;
   const params = [];
   for (let teamID = 1; teamID <= 30; teamID++) {
-    for (let season = limit; season <= currentSeason; season++) {
-      params.push({ teamID: String(teamID), season: String(season) });
-    }
+    // for (let season = limit; season <= currentSeason; season++) {
+    //   params.push({ teamID: String(teamID), season: String(season) });
+    // }
+    params.push({ teamID: String(teamID), season: String(currentSeason) }); // Only current season
   }
   return params;
 }
@@ -66,12 +67,12 @@ async function page({ params }: { params: Promise<{ season: string; teamID: stri
   if (Number(teamID) > 30 || Number(teamID) < 1) return notFound();
 
   const { season: currentSeason, message } = await getCurrentSeasonCached();
-  const limit: number = currentSeason - 1;
+  //const limit: number = currentSeason - 1;
   const seasonAsNumber = Number(season);
 
   if (
     seasonAsNumber > currentSeason ||
-    seasonAsNumber < limit ||
+    seasonAsNumber < /*limit*/ currentSeason ||
     isNaN(seasonAsNumber)
   )
     return notFound();

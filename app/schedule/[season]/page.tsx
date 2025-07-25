@@ -11,9 +11,9 @@ import SeasonDisclaimer from "@/components/SeasonDisclaimer";
 
 export async function generateStaticParams() {
   const {season} = await getCurrentSeasonCached();
-  const limit: number = season - 1;
+  //const limit: number = season - 1;
 
-  return [{ season: String(season) }, { season: String(limit) }];
+  return [{ season: String(season) }/*, { season: String(limit) }*/];
 }
 
 export const revalidate = 43200;
@@ -49,7 +49,7 @@ async function page({ params }: { params: Promise<{ season: string }> }) {
 
   if (
     seasonAsNumber > currentSeason ||
-    seasonAsNumber < limit ||
+    seasonAsNumber < /*limit*/ currentSeason ||
     isNaN(seasonAsNumber)
   )
     return notFound();
