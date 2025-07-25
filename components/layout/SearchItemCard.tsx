@@ -16,7 +16,7 @@ function SearchItemCard({ item, type, season }: SearchItemCardProps) {
     return (
       <Link
         href={`/players/${player.PlayerID}`}
-        className="relative w-full h-20 hover:bg-gray-500 flex items-center justify-evenly"
+        className="relative w-full h-20 hover:bg-gray-500 flex items-center justify-evenly focus:bg-red-500"
       >
         <User2 className="absolute left-0 w-1/4" />
         <p className="absolute left-1/4 w-1/3 truncate whitespace-nowrap overflow-hidden">
@@ -34,7 +34,7 @@ function SearchItemCard({ item, type, season }: SearchItemCardProps) {
     return (
       <Link
         href={`/teams/${team.TeamID}/${season}`}
-        className="relative w-full h-20 hover:bg-gray-500 flex items-center justify-around"
+        className="relative w-full h-20 hover:bg-gray-500 flex items-center justify-around focus:bg-red-500"
       >
         <Icon className="absolute left-0 w-1/4" iconNode={basketball} />
         <p className="absolute left-1/4 w-5/12 truncate whitespace-nowrap overflow-hidden">

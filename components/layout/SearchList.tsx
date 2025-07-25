@@ -1,27 +1,24 @@
 import React from "react";
 import { Loader2 } from "lucide-react";
-import { SearchResponse } from "@/app/api/route";
-import { SearchResult, sortAndFilterList } from "@/lib/sortAndFilterSearch";
+import { SearchResult } from "@/lib/sortAndFilterSearch";
 import SearchItemCard from "./SearchItemCard";
 
 export type SearchListProps = {
-  data: SearchResponse | undefined;
+  results: SearchResult[];
   isError: boolean;
   isLoading: boolean;
   search: string;
   scrolled: boolean;
+  season:number | undefined;
 };
 
 function SearchList({
-  data,
+  results,
   isError,
   isLoading,
-  search,
   scrolled,
+  season
 }: SearchListProps) {
-
-  const results: SearchResult[] =  data ? sortAndFilterList(search, data) : [];
-
 
   return (
     <div
@@ -29,7 +26,7 @@ function SearchList({
         scrolled ? "bg-secondary border-secondary-light" : "bg-primary"
       }`}
     >
-      {(isError || (results.length === 0 && data)) && (
+      {(!isLoading && (isError || results.length === 0)) && (
         <p className="flex justify-center items-center w-full h-full my-4">
           Oops, something went wrong...
         </p>
@@ -39,7 +36,7 @@ function SearchList({
           <Loader2 className="animate-spin" />
         </div>
       )}
-      {data &&
+      {results && season &&
         results.map((result) => {
           const key =
             result.type === "team" ? result.item.TeamID : result.item.PlayerID;
@@ -49,7 +46,7 @@ function SearchList({
               key={key}
               item={result.item}
               type={result.type}
-              season={data.season.season}
+              season={season}
             />
           );
         })}

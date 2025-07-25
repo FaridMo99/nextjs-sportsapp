@@ -1,11 +1,15 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useMemo, useRef, useState } from "react";
 import { Input } from "../ui/input";
 import { Search as Loop } from "lucide-react";
 import SearchList from "./SearchList";
 import { SearchResponse } from "@/app/api/route";
 import { useQuery } from "@tanstack/react-query";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { SearchResult, sortAndFilterList } from "@/lib/sortAndFilterSearch";
+
+
 
 async function getSearch(): Promise<SearchResponse> {
   const res = await fetch("/api");
@@ -18,9 +22,18 @@ async function getSearch(): Promise<SearchResponse> {
 }
 
 function Search({ scrolled }: { scrolled: boolean }) {
-  const [search, setSearch] = useState<string>("");
-  const [firstLink,setFirstLink] = useState<string>("")
-  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [search, setSearch] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
+  const focusRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const router = useRouter();
+
+  function debounceFocus(boolean:boolean,ms:number):void {
+    setTimeout(() => {
+      setIsFocused(boolean)
+    },ms);
+  }
+
   const { data, isError, isLoading } = useQuery({
     queryKey: ["Search"],
     queryFn: getSearch,
@@ -28,23 +41,61 @@ function Search({ scrolled }: { scrolled: boolean }) {
     staleTime: Infinity,
   });
 
-  async function changeHandler(e: React.ChangeEvent<HTMLInputElement>) {
-    setSearch(e.target.value.replace(/^\s/, ""));
+  const results: SearchResult[] = useMemo(() => {
+    return data ? sortAndFilterList(search, data) : [];
+  }, [search, data]);
+
+  function handleFocusCapture() {
+    setIsFocused(true);
+  }
+
+function handleFocusBlur(e: React.FocusEvent<HTMLDivElement>) {
+  const target = e.relatedTarget as HTMLElement | null;
+  if (
+    focusRef.current &&
+    target &&
+    focusRef.current.contains(target)
+  ) {
+    return;
+  }
+    debounceFocus(false, 150);
+}
+
+  function changeHandler(e: React.ChangeEvent<HTMLInputElement>) {
+    const newVal = e.target.value.replace(/^\s/, "");
+    setSearch(newVal);
+    setIsFocused(true);
   }
 
   function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    redirect(firstLink)
+
+    const top = results[0];
+    if (!top || !search) return;
+
+    if (top.type === "player") {
+      router.push(`/players/${top.item.PlayerID}`);
+    } else {
+      router.push(`/teams/${top.item.TeamID}/${data?.season.season}`);
+    }
+
+    debounceFocus(false,150);
+    setSearch("");
+    inputRef.current?.blur();
   }
 
   return (
-    <div className="w-2/5 md:w-1/2 relative">
+    <div
+      ref={focusRef}
+      onFocusCapture={handleFocusCapture}
+      onBlurCapture={handleFocusBlur}
+      className="w-2/5 md:w-1/2 relative"
+    >
       <form onSubmit={submitHandler} className="w-full h-full">
         <Input
           value={search}
+          ref={inputRef}
           onChange={changeHandler}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setTimeout(() => setIsFocused(false), 100)}
           type="text"
           className={`${search.length > 0 && isFocused ? "rounded-b-none" : ""}`}
         />
@@ -58,13 +109,15 @@ function Search({ scrolled }: { scrolled: boolean }) {
           </button>
         )}
       </form>
+
       {search.length > 0 && isFocused && (
         <SearchList
-          data={data}
+          results={results}
           isError={isError}
           search={search}
           isLoading={isLoading}
           scrolled={scrolled}
+          season={data?.season.season}
         />
       )}
     </div>
