@@ -8,6 +8,8 @@ import { GameScore, Standing } from "./types";
 import NoDataText from "@/components/NoDataText";
 import SeasonDisclaimer from "@/components/SeasonDisclaimer";
 
+export const dynamic = "force-dynamic";
+
 function getDay(offset: number): string {
   const date = new Date();
   date.setDate(date.getDate() + offset);

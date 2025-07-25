@@ -7,13 +7,14 @@ import ThirdCard from "./ThirdCard";
 import getCurrentSeason from "@/lib/getCurrentSeason";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import getData, { getCachedData } from "@/lib/getData";
-import {  PlayerInfo, PlayerSeasonStat } from "@/app/types";
+import { PlayerInfo, PlayerSeasonStat } from "@/app/types";
 import SeasonDisclaimer from "@/components/SeasonDisclaimer";
+import NoDataText from "@/components/NoDataText";
 
 function getPlayer(
   players: PlayerInfo[] | PlayerSeasonStat[],
   id: string,
-): PlayerInfo | PlayerSeasonStat {
+): PlayerInfo | PlayerSeasonStat | undefined {
   return players.find((player) => player.PlayerID === Number(id))!;
 }
 
@@ -80,22 +81,28 @@ export default async function Page({ params }: { params: Promise<{ playerId: str
 
   const bio = getPlayer(bios, playerId) as PlayerInfo;
   const seasonStats = getPlayer(allSeasonStats, playerId) as PlayerSeasonStat;
-
+  console.log(seasonStats)
   const teamName = transformTeamName(bio.Team);
-
+  
   return (
     <div className="flex flex-grow flex-col items-center justify-evenly p-4">
       <main className="flex-grow w-full md:flex md:justify-evenly rounded-2xl mb-2">
         <FirstCard bio={bio} teamName={teamName} />
-        <SecondCard seasonStats={seasonStats} teamName={teamName} />
-        <Suspense fallback={<LoadingSpinner />}>
-          <ThirdCard
-            playerId={playerId}
-            currentSeason={currentSeason}
-            seasons={bio.Experience}
-            teamName={teamName}
-          />
-        </Suspense>
+        {seasonStats !== undefined ? (
+          <>
+            <SecondCard seasonStats={seasonStats} teamName={teamName} />
+            <Suspense fallback={<LoadingSpinner />}>
+              <ThirdCard
+                playerId={playerId}
+                currentSeason={currentSeason}
+                seasons={bio.Experience}
+                teamName={teamName}
+              />
+            </Suspense>
+          </>
+        ) : (
+          <NoDataText text="Player has no Statistics yet." />
+        )}
       </main>
       <SeasonDisclaimer seasonType={message} season={currentSeason} />
     </div>
