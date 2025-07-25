@@ -13,8 +13,8 @@ export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   const {season:currentSeason} = await getCurrentSeasonCached();
-  const limit = currentSeason - 1;
-  const seasons: [number, number] = [limit, currentSeason];
+  //const limit = currentSeason - 1;
+  const seasons: [number/*, number*/] = [/*limit,*/ currentSeason];
   const params: unknown[] = [];
 
   for (const season of seasons) {
