@@ -5,6 +5,7 @@ import { Search as Loop } from "lucide-react";
 import SearchList from "./SearchList";
 import { SearchResponse } from "@/app/api/route";
 import { useQuery } from "@tanstack/react-query";
+import { redirect } from "next/navigation";
 
 async function getSearch(): Promise<SearchResponse> {
   const res = await fetch("/api");
@@ -18,6 +19,7 @@ async function getSearch(): Promise<SearchResponse> {
 
 function Search({ scrolled }: { scrolled: boolean }) {
   const [search, setSearch] = useState<string>("");
+  const [firstLink,setFirstLink] = useState<string>("")
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const { data, isError, isLoading } = useQuery({
     queryKey: ["Search"],
@@ -32,6 +34,7 @@ function Search({ scrolled }: { scrolled: boolean }) {
 
   function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    redirect(firstLink)
   }
 
   return (
@@ -45,7 +48,7 @@ function Search({ scrolled }: { scrolled: boolean }) {
           type="text"
           className={`${search.length > 0 && isFocused ? "rounded-b-none" : ""}`}
         />
-        {search.length > 0 && (
+        {search.length > 0 && data && (
           <button
             type="submit"
             aria-label="search"

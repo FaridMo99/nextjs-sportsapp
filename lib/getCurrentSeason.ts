@@ -13,7 +13,7 @@ type SeasonType = {
 
 export type SeasonMessage = "last" | "current";
 
-type SeasonResponse = {
+export type SeasonResponse = {
   season: number;
   message:SeasonMessage;
 };
